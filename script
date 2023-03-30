@@ -21,3 +21,8 @@ sudo docker login
 docker build -t qaqg .
 #check docker images
 docker images
+docker ps
+docker rm -f CONTAINER_ID
+sudo docker rmi 4423d5e3ddae
+#set permission
+chmod a+x docker

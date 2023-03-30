@@ -24,6 +24,8 @@ RUN python3 -m spacy download en_core_web_lg
 RUN mkdir /QA
 ADD ask /QA
 ADD answer /QA
+RUN chmod a+x ask
+RUN chmod a+x answer
 
 # Change the permissions of programs
 CMD ["chmod 777 /QA/*"]
