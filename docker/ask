@@ -11,7 +11,7 @@ from transformers import (
     T5TokenizerFast,
     T5ForConditionalGeneration, T5Tokenizer
 )
-from datasets import load_dataset
+from datasets import load_dataset,utils
 
 QA_MODEL = 'deepset/tinyroberta-squad2'
 QG_MODEL = 'allenai/t5-small-squad2-question-generation'
@@ -22,11 +22,11 @@ def generate_questions(wiki_file_path, nr_questions):
         device = torch.device('cuda')
     else:
         device = torch.device('cpu')
-    # logger.info(f'Using Device: {device}')
 
+    logging.getLogger('datasets').setLevel(logging.CRITICAL)
+    utils.disable_progress_bar()
     tokenizer = T5Tokenizer.from_pretrained(QG_MODEL)
     model = T5ForConditionalGeneration.from_pretrained(QG_MODEL).to(device)
-
     qg_dataset = load_dataset('text', data_files={'test': [wiki_file_path]}, sample_by='paragraph')
     # this will load one paragraph at a time
     qg_dataloader = DataLoader(qg_dataset['test'], batch_size=1, num_workers=1)
