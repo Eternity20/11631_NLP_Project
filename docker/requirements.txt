@@ -27,7 +27,7 @@ fonttools==4.37.4
 fsspec==2023.3.0
 helpdev==0.7.1
 hid==1.0.4
-hidapi==0.10.1
+#hidapi==0.10.1
 huggingface-hub==0.13.3
 joblib
 kiwisolver==1.4.4
