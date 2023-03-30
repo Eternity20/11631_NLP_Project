@@ -32,7 +32,7 @@ def generate_questions(wiki_file_path, nr_questions):
     qg_dataloader = DataLoader(qg_dataset['test'], batch_size=1, num_workers=1)
     questions_generated = []
     for input_string in qg_dataloader:
-        if nr_questions < len(questions_generated):
+        if nr_questions <= len(questions_generated):
             break
         else:
             if len(input_string['text'][0]) < 20:  # minimum context to generate question
@@ -48,9 +48,6 @@ def generate_questions(wiki_file_path, nr_questions):
 if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
-    # input_file = "/Users/zzy/Desktop/ZZY/CMU/23Spring/11611/QA_QG/11631_NLP_Project/data/set1/a1.txt"
-    # N = 3
-    print("begin ask")
     generated_questions = generate_questions(input_file, N)
     print(len(generated_questions))
     for question in generated_questions:
