@@ -49,6 +49,5 @@ if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
     generated_questions = generate_questions(input_file, N)
-    print(len(generated_questions))
     for question in generated_questions:
         print(f'{question}')
