@@ -50,33 +50,22 @@ pyarrow==11.0.0
 pycparser
 pyOpenSSL
 pyparsing
-PySocks @ file:///tmp/build/80754af9/pysocks_1605305779399/work
-python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
 python-socks==1.1.2
-pytz @ file:///opt/conda/conda-bld/pytz_1654762638606/work
 PyYAML==6.0
 QDarkStyle==2.8.1
 qrcode==6.1
 QtPy==1.9.0
-regex @ file:///tmp/abs_41f5bce5-0a2e-45aa-b231-1fd2fbd57753gfpe6sjm/croots/recipe/regex_1658257178822/work
-requests @ file:///opt/conda/conda-bld/requests_1657734628632/work
 responses==0.18.0
 sarge==0.1.7.post1
-scikit-learn @ file:///tmp/abs_d76175bc-917a-47d4-9994-b56265948a6328vmoe2o/croots/recipe/scikit-learn_1658419412415/work
 scipy==1.9.1
 sentencepiece==0.1.97
-six @ file:///tmp/build/80754af9/six_1644875935023/work
-soupsieve @ file:///tmp/build/80754af9/soupsieve_1636706018808/work
 tfrecord==1.11
-threadpoolctl @ file:///Users/ktietz/demo/mc3/conda-bld/threadpoolctl_1629802263681/work
 tokenizers==0.13.2
 torch==1.8.1
 torchaudio==0.8.1
 torchvision==0.9.1
-tqdm @ file:///opt/conda/conda-bld/tqdm_1664392687731/work
 transformers==4.27.3
 trectools==0.0.49
 typing-extensions==3.7.4.3
-urllib3 @ file:///tmp/abs_5dhwnz6atv/croots/recipe/urllib3_1659110457909/work
 xxhash==3.2.0
 yarl==1.6.3
