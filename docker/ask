@@ -48,6 +48,7 @@ def generate_questions(wiki_file_path, nr_questions):
 if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
+    # input_file = ""
     generated_questions = generate_questions(input_file, N)
     print("answer"+len(generated_questions))
     for question in generated_questions:
