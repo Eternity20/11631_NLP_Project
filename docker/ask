@@ -48,8 +48,10 @@ def generate_questions(wiki_file_path, nr_questions):
 if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
-    # input_file = ""
+    # input_file = "/Users/zzy/Desktop/ZZY/CMU/23Spring/11611/QA_QG/11631_NLP_Project/data/set1/a1.txt"
+    # N = 3
+    print("begin ask")
     generated_questions = generate_questions(input_file, N)
-    print("answer"+len(generated_questions))
+    print(len(generated_questions))
     for question in generated_questions:
         print(f'{question}')

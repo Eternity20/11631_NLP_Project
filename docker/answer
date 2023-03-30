@@ -2,7 +2,6 @@
 # -*- coding:utf8 -*-
 import sys
 
-
 if __name__ == "__main__":
     input_file = sys.argv[1]
     question_file = sys.argv[2]
