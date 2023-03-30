@@ -19,7 +19,9 @@ sudo docker run hello-world
 #--------build image-------------------------------------------------
 sudo docker login
 docker build -t qaqg .
-#check docker images
+#--------test-------------------------------------------------------
+sudo ./test.sh qaqg
+#-------------------------------------------------------------------
 docker images
 docker ps
 docker rm -f CONTAINER_ID
