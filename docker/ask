@@ -2,6 +2,7 @@
 # -*- coding:utf8 -*-
 
 import sys
+import os
 import argparse
 import logging
 import torch
@@ -27,9 +28,8 @@ def generate_questions(wiki_file_path, nr_questions):
     utils.disable_progress_bar()
     tokenizer = T5Tokenizer.from_pretrained(QG_MODEL)
     model = T5ForConditionalGeneration.from_pretrained(QG_MODEL).to(device)
-    print("4")
-    qg_dataset = load_dataset('text', data_files={'test': [wiki_file_path]}, sample_by='paragraph')
-    print("5s")
+    with open(os.devnull, 'w') as f:
+        qg_dataset = load_dataset('text', data_files={'test': [wiki_file_path]}, sample_by='paragraph')
     # this will load one paragraph at a time
     qg_dataloader = DataLoader(qg_dataset['test'], batch_size=1, num_workers=1)
     questions_generated = []
