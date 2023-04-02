@@ -398,7 +398,7 @@ def print_qa(qa_list: List[Mapping[str, str]], show_answers: bool = True) -> Non
         # wider space for 2 digit q nums
         space = " " * int(np.where(i < 9, 3, 4))
 
-        print(f"{i + 1}) Q: {qa_list[i]['question']}")
+        print(f"{qa_list[i]['question']}")
 
         answer = qa_list[i]["answer"]
 
