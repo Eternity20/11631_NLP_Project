@@ -27,7 +27,7 @@ class QuestionGenerator:
         QG_PRETRAINED = "iarfmoose/t5-base-question-generator"
         self.ANSWER_TOKEN = "<answer>"
         self.CONTEXT_TOKEN = "<context>"
-        self.SEQ_LENGTH = 512
+        self.SEQ_LENGTH = 1024
 
         self.device = torch.device(
             "cuda" if torch.cuda.is_available() else "cpu")
@@ -52,7 +52,7 @@ class QuestionGenerator:
         should selected from ["all", "sentences", "multiple_choice"].
         """
 
-        print("Generating questions...\n")
+        #print("Generating questions...\n")
 
         qg_inputs, qg_answers = self.generate_qg_inputs(article, answer_style)
         generated_questions = self.generate_questions_from_inputs(qg_inputs)
@@ -63,7 +63,7 @@ class QuestionGenerator:
         assert len(generated_questions) == len(qg_answers), message
 
         if use_evaluator:
-            print("Evaluating QA pairs...\n")
+            #print("Evaluating QA pairs...\n")
             encoded_qa_pairs = self.qa_evaluator.encode_qa_pairs(
                 generated_questions, qg_answers
             )
@@ -79,7 +79,7 @@ class QuestionGenerator:
                 )
 
         else:
-            print("Skipping evaluation step.\n")
+            #print("Skipping evaluation step.\n")
             qa_list = self._get_all_qa_pairs(generated_questions, qg_answers)
 
         return qa_list
