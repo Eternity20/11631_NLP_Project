@@ -13,25 +13,42 @@ from Asking.advance_qg import print_qa
 if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
-    # N_small = int(N / 2)
-    # N_yesNo = N - N_small
-    # with open('output.txt', 'w') as f:
-    #     sys.stdout = f
-    #     qg_small = T5SmallQuestionGenerator(input_file, N_small)
-    #     small_questions = qg_small.generate_questions()
-    #
-    #     if N_yesNo > 0:
-    #         with open(input_file, encoding="UTF-8") as a:
-    #             article = a.read()
-    #         qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
-    #         yesNo_questions = qg_yesNo.generate()
-    #
-    #     sys.stdout = sys.__stdout__
-    #
-    # for question in small_questions:
-    #     print(f'{question}')
-    # for question in yesNo_questions:
-    #     print(f'{question}')
+    N_A = int(N / 3)
+    N_small = int(N / 3)
+    N_yesNo = N-N_small-N_A
+
+    with open('output.txt', 'w') as f:
+        sys.stdout = f
+        qg_small = T5SmallQuestionGenerator(input_file, N_small)
+        small_questions = qg_small.generate_questions()
+
+        with open(input_file, encoding="UTF-8") as a:
+            article = a.read()
+
+        if N_yesNo > 0:
+            qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
+            yesNo_questions = qg_yesNo.generate()
+
+        if N_A>0:
+            qg = QuestionGenerator()
+            qa_list = qg.generate(
+                article,
+                num_questions=N_A,
+                answer_style='sentences'
+            )
+
+        sys.stdout = sys.__stdout__
+
+    # print t5 small dataset
+    for question in small_questions:
+        print(f'{question}')
+
+    # print yes or no dataset
+    for question in yesNo_questions:
+        print(f'{question}')
+
+    # print qa
+    print_qa(qa_list, show_answers=False)
 
     # with open(input_file, encoding="UTF-8") as a:
     #     article = a.read()
@@ -41,12 +58,12 @@ if __name__ == '__main__':
     # for out in output:
     #     print(out)
 
-    with open(input_file, encoding="UTF-8") as a:
-        article = a.read()
-    qg = QuestionGenerator()
-    qa_list = qg.generate(
-        article,
-        num_questions=10,
-        answer_style='sentences'
-    )
-    print_qa(qa_list, show_answers=False)
+    # with open(input_file, encoding="UTF-8") as a:
+    #     article = a.read()
+    # qg = QuestionGenerator()
+    # qa_list = qg.generate(
+    #     article,
+    #     num_questions=10,
+    #     answer_style='sentences'
+    # )
+    # print_qa(qa_list, show_answers=False)
