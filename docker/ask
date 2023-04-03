@@ -16,7 +16,19 @@ from datasets import load_dataset,utils
 
 QA_MODEL = 'deepset/tinyroberta-squad2'
 QG_MODEL = 'allenai/t5-small-squad2-question-generation'
-
+#----------------------------
+import en_core_web_sm
+import json
+import numpy as np
+import random
+import re
+import torch
+from transformers import (
+    AutoTokenizer,
+    AutoModelForSeq2SeqLM,
+    AutoModelForSequenceClassification,
+)
+from typing import Any, List, Mapping, Tuple
 
 def generate_questions(wiki_file_path, nr_questions):
     if torch.cuda.is_available():
@@ -51,8 +63,6 @@ def generate_questions(wiki_file_path, nr_questions):
 if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
-    print(input_file)
-    print(N)
     generated_questions = generate_questions(input_file, N)
     for question in generated_questions:
         print(f'{question}')
