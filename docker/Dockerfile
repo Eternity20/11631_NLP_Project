@@ -14,7 +14,10 @@ RUN apt-get -y install python3-pip python3-dev
 
 # Install spaCy
 RUN pip3 install --upgrade pip
-RUN pip3 install spacy
+#RUN pip3 install spacy
+#RUN python3 -m spacy download en_core_web_sm
+RUN pip3 install -U pip setuptools wheel
+RUN pip3 install -U spacy
 RUN python3 -m spacy download en_core_web_sm
 
 COPY requirements.txt requirements.txt
