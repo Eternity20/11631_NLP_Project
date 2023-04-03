@@ -13,8 +13,8 @@ if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
     print(N)
-    N_small = N / 2
-    N_yesNo = N - N / 2
+    N_small = int(N / 2)
+    N_yesNo = N - N_small
     print(N_small)
     print(N_yesNo)
     with open('output.txt', 'w') as f:
