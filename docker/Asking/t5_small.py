@@ -5,11 +5,9 @@ import sys
 import logging
 import torch
 from torch.utils.data import DataLoader
-print("load transformer")
 from transformers import (
     T5ForConditionalGeneration, T5Tokenizer
 )
-print("load dataset")
 from datasets import load_dataset,utils
 logging.basicConfig(level=logging.CRITICAL)
 

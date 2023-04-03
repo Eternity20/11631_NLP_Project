@@ -12,7 +12,8 @@ from Asking.t5_boolean import YesNoQuestionGenerator
 if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
-
+    print(input_file)
+    print(N)
     # with open('output.txt', 'w') as f:
     #     sys.stdout = f
     qg = T5SmallQuestionGenerator(input_file, N)
