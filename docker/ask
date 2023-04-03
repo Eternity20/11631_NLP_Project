@@ -3,8 +3,8 @@
 
 import sys
 sys.path.append("/Users/zzy/Desktop/ZZY/CMU/23Spring/11611/QA_QG/11631_NLP_Project/Asking")
-from Asking.t5_small import T5SmallQuestionGenerator
-# from Asking.t5_boolean import YesNoQuestionGenerator
+#from Asking.t5_small import T5SmallQuestionGenerator
+from Asking.t5_boolean import YesNoQuestionGenerator
 # from Asking.advance_qg import QuestionGenerator
 # from Asking.advance_qg import print_qa
 
@@ -12,7 +12,15 @@ from Asking.t5_small import T5SmallQuestionGenerator
 if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
-    qg = T5SmallQuestionGenerator(input_file,N)
-    generated_questions = qg.generate_questions()
-    for question in generated_questions:
-        print(f'{question}')
+    # qg = T5SmallQuestionGenerator(input_file,N)
+    # generated_questions = qg.generate_questions()
+    # for question in generated_questions:
+    #     print(f'{question}')
+
+    with open(input_file, encoding="UTF-8") as a:
+            article = a.read()
+
+    qg = YesNoQuestionGenerator(article, N)
+    output = qg.generate()
+    for out in output:
+            print(out)
