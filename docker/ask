@@ -28,6 +28,7 @@ def generate_questions(wiki_file_path, nr_questions):
     utils.disable_progress_bar()
     tokenizer = T5Tokenizer.from_pretrained(QG_MODEL)
     model = T5ForConditionalGeneration.from_pretrained(QG_MODEL).to(device)
+    print("load model finish")
     with open('output.txt', 'w') as f:
         sys.stdout = f
         qg_dataset = load_dataset('text', data_files={'test': [wiki_file_path]}, sample_by='paragraph')
@@ -35,6 +36,7 @@ def generate_questions(wiki_file_path, nr_questions):
     # this will load one paragraph at a time
     qg_dataloader = DataLoader(qg_dataset['test'], batch_size=1, num_workers=1)
     questions_generated = []
+    print("generate question")
     for input_string in qg_dataloader:
         if nr_questions <= len(questions_generated):
             break
