@@ -5,12 +5,13 @@ import sys
 import logging
 import torch
 from torch.utils.data import DataLoader
-logging.basicConfig(level=logging.CRITICAL)
+print("load transformer")
 from transformers import (
     T5ForConditionalGeneration, T5Tokenizer
 )
+print("load dataset")
 from datasets import load_dataset,utils
-
+logging.basicConfig(level=logging.CRITICAL)
 
 
 class T5SmallQuestionGenerator:
@@ -35,11 +36,11 @@ class T5SmallQuestionGenerator:
             sys.stdout = f
             tokenizer = T5Tokenizer.from_pretrained(self.QG_MODEL)
             model = T5ForConditionalGeneration.from_pretrained(self.QG_MODEL).to(device)
+            qg_dataset = load_dataset('text', data_files={'test': [self.wiki_file_path]}, sample_by='paragraph')
+            # this will load one paragraph at a time
+            qg_dataloader = DataLoader(qg_dataset['test'], batch_size=1, num_workers=1)
             sys.stdout = sys.__stdout__
         print("2")
-        qg_dataset = load_dataset('text', data_files={'test': [self.wiki_file_path]}, sample_by='paragraph')
-        # this will load one paragraph at a time
-        qg_dataloader = DataLoader(qg_dataset['test'], batch_size=1, num_workers=1)
         questions_generated = []
         for input_string in qg_dataloader:
             if self.nquestions <= len(questions_generated):
