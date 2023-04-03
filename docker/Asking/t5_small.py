@@ -16,20 +16,27 @@ from datasets import load_dataset,utils
 class T5SmallQuestionGenerator:
 
     def __init__(self,wiki_file_path,nquestions):
+        print("init")
         self.QA_MODEL = 'deepset/tinyroberta-squad2'
         self.QG_MODEL = 'allenai/t5-small-squad2-question-generation'
         self.wiki_file_path = wiki_file_path
         self.nquestions = nquestions
 
     def generate_questions(self):
+        print("generate")
         if torch.cuda.is_available():
             device = torch.device('cuda')
         else:
             device = torch.device('cpu')
         logging.getLogger('datasets').setLevel(logging.CRITICAL)
         utils.disable_progress_bar()
-        tokenizer = T5Tokenizer.from_pretrained(self.QG_MODEL)
-        model = T5ForConditionalGeneration.from_pretrained(self.QG_MODEL).to(device)
+        print("1")
+        with open('output.txt', 'w') as f:
+            sys.stdout = f
+            tokenizer = T5Tokenizer.from_pretrained(self.QG_MODEL)
+            model = T5ForConditionalGeneration.from_pretrained(self.QG_MODEL).to(device)
+            sys.stdout = sys.__stdout__
+        print("2")
         qg_dataset = load_dataset('text', data_files={'test': [self.wiki_file_path]}, sample_by='paragraph')
         # this will load one paragraph at a time
         qg_dataloader = DataLoader(qg_dataset['test'], batch_size=1, num_workers=1)
