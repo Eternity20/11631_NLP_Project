@@ -23,7 +23,7 @@ def generate_questions(wiki_file_path, nr_questions):
         device = torch.device('cuda')
     else:
         device = torch.device('cpu')
-
+    print("load model")
     logging.getLogger('datasets').setLevel(logging.CRITICAL)
     utils.disable_progress_bar()
     tokenizer = T5Tokenizer.from_pretrained(QG_MODEL)
@@ -52,6 +52,8 @@ def generate_questions(wiki_file_path, nr_questions):
 if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
+    print(input_file)
+    print(N)
     generated_questions = generate_questions(input_file, N)
     for question in generated_questions:
         print(f'{question}')
