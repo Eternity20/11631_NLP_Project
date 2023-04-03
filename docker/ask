@@ -14,11 +14,10 @@ from transformers import (
 )
 from datasets import load_dataset,utils
 
-
 QA_MODEL = 'deepset/tinyroberta-squad2'
 QG_MODEL = 'allenai/t5-small-squad2-question-generation'
 
-#----------new---------------
+
 def generate_questions(wiki_file_path, nr_questions):
     if torch.cuda.is_available():
         device = torch.device('cuda')
