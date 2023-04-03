@@ -332,7 +332,7 @@ class QAEvaluator:
     def __init__(self) -> None:
 
         QAE_PRETRAINED = "iarfmoose/bert-base-cased-qa-evaluator"
-        self.SEQ_LENGTH = 512
+        self.SEQ_LENGTH = 256
 
         self.device = torch.device(
             "cuda" if torch.cuda.is_available() else "cpu")
@@ -430,15 +430,15 @@ def print_qa(qa_list: List[Mapping[str, str]], show_answers: bool = True) -> Non
                 print(f"{space}A: {answer}\n")
 
 
-# if __name__ == '__main__':
-#     input_file = sys.argv[1]
-#     N = int(sys.argv[2])
-#     with open(input_file, encoding="UTF-8") as a:
-#         article = a.read()
-#     qg = QuestionGenerator()
-#     qa_list = qg.generate(
-#         article,
-#         num_questions=10,
-#         answer_style='sentences'
-#     )
-#     print_qa(qa_list, show_answers=False)
+if __name__ == '__main__':
+    input_file = sys.argv[1]
+    N = int(sys.argv[2])
+    with open(input_file, encoding="UTF-8") as a:
+        article = a.read()
+    qg = QuestionGenerator()
+    qa_list = qg.generate(
+        article,
+        num_questions=10,
+        answer_style='sentences'
+    )
+    print_qa(qa_list, show_answers=False)

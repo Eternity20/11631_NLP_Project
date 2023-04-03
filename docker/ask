@@ -12,16 +12,19 @@ logging.basicConfig(level=logging.CRITICAL)
 if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
-
+    print(N)
+    N_small = N / 2
+    N_yesNo = N - N / 2
+    print(N_small)
+    print(N_yesNo)
     with open('output.txt', 'w') as f:
         sys.stdout = f
-        N_small = N/2
-        N_yesNo = N-N/2
         qg_small = T5SmallQuestionGenerator(input_file, N_small)
         small_questions = qg_small.generate_questions()
 
         with open(input_file, encoding="UTF-8") as a:
             article = a.read()
+
         qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
         yesNo_questions = qg_yesNo.generate()
         sys.stdout = sys.__stdout__
