@@ -17,13 +17,13 @@ if __name__ == '__main__':
     for question in generated_questions:
         print(f'{question}')
 
-    with open(input_file, encoding="UTF-8") as a:
-        article = a.read()
-
-    qg = YesNoQuestionGenerator(article, N)
-    output = qg.generate()
-    for out in output:
-        print(out)
+    # with open(input_file, encoding="UTF-8") as a:
+    #     article = a.read()
+    #
+    # qg = YesNoQuestionGenerator(article, N)
+    # output = qg.generate()
+    # for out in output:
+    #     print(out)
 
     # with open(input_file, encoding="UTF-8") as a:
     #     article = a.read()
