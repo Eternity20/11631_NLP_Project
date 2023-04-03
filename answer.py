@@ -2,14 +2,8 @@ import json
 import sys
 import argparse
 import logging
-from typing import Dict, List, Union
-
-import torch
+from typing import List, Tuple, Any
 from torch.utils.data import DataLoader
-from transformers import (
-	RobertaTokenizerFast,
-	RobertaForQuestionAnswering
-)
 from mydatasets.QAProjectDataset import QAProjectDataset
 from mymodels.QAProjectModel import QAProjectModel
 from utils import set_device
@@ -18,14 +12,9 @@ from utils import set_device
 QA_MODEL = 'deepset/roberta-base-squad2-distilled'
 
 def answer_questions(wiki_doc, questions, loaded_conf_dict):
-	device = torch.device('cpu')#set_device()
-	model = RobertaForQuestionAnswering.from_pretrained(QA_MODEL).to(device)
-	qa_model = QAProjectModel.from_config_dict(model, device, loaded_conf_dict)
-	tokenizer = RobertaTokenizerFast.from_pretrained(QA_MODEL)
-	qa_dataset = QAProjectDataset.from_config_dict(wiki_doc,questions, tokenizer, loaded_conf_dict)
-	# qa_dataset = load_dataset('text', data_files={'test': [wiki_file_path]}, sample_by='document')
-	# this will load one paragraph at a time
-	#qa_dataloader = DataLoader(qa_dataset['test'], batch_size=1, num_workers=1)
+	device = set_device()
+	qa_model = QAProjectModel.from_config_dict(QA_MODEL, device, loaded_conf_dict)
+	qa_dataset = QAProjectDataset.from_config_dict(wiki_doc, questions, qa_model.tokenizer, loaded_conf_dict)
 	qa_dataloader = DataLoader(qa_dataset, batch_size=qa_model.batch_size, num_workers=2, pin_memory=True)
 
 	start_logits, end_logits = qa_model.qa_inference(qa_dataloader)
@@ -33,7 +22,7 @@ def answer_questions(wiki_doc, questions, loaded_conf_dict):
 	return pred_answers
 
 
-def read_files(wiki_file_path:str, questions_file_path:str, config_file_path:str) -> Union[List[str],List[str],Dict]:
+def read_files(wiki_file_path:str, questions_file_path:str, config_file_path:str) -> Tuple[List[str], List[str], Any]:
 	config_dict = None
 	with open(config_file_path, 'r') as f:
 		config_dict = json.load(f)
@@ -63,5 +52,5 @@ if __name__ == '__main__':
 
 	predicted_answers = answer_questions(wiki_doc, questions, config_dict)
 	for answer in predicted_answers:
-		print(f'{answer}')
+		print(f"{answer['prediction_text']}")
 	sys.exit(0)

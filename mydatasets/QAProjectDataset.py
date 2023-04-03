@@ -11,7 +11,7 @@ class QAProjectDataset(Dataset):
 		return ' '.join([line.strip() for line in wiki_doc if line.strip()])
 
 	def __init__(self, wiki_doc, questions, tokenizer, max_length, stride, truncation, padding,
-	             return_overflowing_tokens, return_offsets_mapping):
+	             return_overflowing_tokens, return_offsets_mapping, **kwargs):
 		self.wiki_doc = wiki_doc
 		self.wiki_doc_str = self.preprocess_doc(wiki_doc)
 		self.questions = questions

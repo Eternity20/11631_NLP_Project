@@ -10,6 +10,7 @@ from transformers import (
 	RobertaTokenizer,
 	RobertaForQuestionAnswering
 )
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 def set_random_seed(seed: int = 0):
 	"""
@@ -47,7 +48,7 @@ class QAProjectModel:
 		self.max_answer_length = max_answer_length
 		self.batch_size = batch_size
 		set_random_seed()
-		self.tokenizer = RobertaTokenizer.from_pretrained(self.model_name)
+		self.tokenizer = RobertaTokenizerFast.from_pretrained(self.model_name)
 		self.model = RobertaForQuestionAnswering.from_pretrained(self.model_name).to(self.device)
 
 	@classmethod
