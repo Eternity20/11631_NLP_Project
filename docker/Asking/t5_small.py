@@ -54,10 +54,10 @@ class T5SmallQuestionGenerator:
         return questions_generated
 
 
-if __name__ == '__main__':
-    input_file = sys.argv[1]
-    N = int(sys.argv[2])
-    qg = T5SmallQuestionGenerator(input_file,N)
-    generated_questions = qg.generate_questions()
-    for question in generated_questions:
-        print(f'{question}')
+# if __name__ == '__main__':
+#     input_file = sys.argv[1]
+#     N = int(sys.argv[2])
+#     qg = T5SmallQuestionGenerator(input_file,N)
+#     generated_questions = qg.generate_questions()
+#     for question in generated_questions:
+#         print(f'{question}')

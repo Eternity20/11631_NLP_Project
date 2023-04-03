@@ -30,16 +30,16 @@ class YesNoQuestionGenerator:
       Questions = [self.tokenizer.decode(out, skip_special_tokens=True,clean_up_tokenization_spaces=True) for out in topkp_output]
       return [Question.strip().capitalize() for Question in Questions]
 
-if __name__ == '__main__':
-    input_file = sys.argv[1]
-    N = int(sys.argv[2])
-
-    with open(input_file, encoding="UTF-8") as a:
-        article = a.read()
-
-    qg = YesNoQuestionGenerator(article, N)
-    output = qg.generate()
-    for out in output:
-        print(out)
+# if __name__ == '__main__':
+#     input_file = sys.argv[1]
+#     N = int(sys.argv[2])
+#
+#     with open(input_file, encoding="UTF-8") as a:
+#         article = a.read()
+#
+#     qg = YesNoQuestionGenerator(article, N)
+#     output = qg.generate()
+#     for out in output:
+#         print(out)
 
 
