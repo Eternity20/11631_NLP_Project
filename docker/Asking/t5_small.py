@@ -31,10 +31,10 @@ class T5SmallQuestionGenerator:
         logging.getLogger('datasets').setLevel(logging.CRITICAL)
         utils.disable_progress_bar()
         tokenizer = T5Tokenizer.from_pretrained(self.QG_MODEL)
-        model = T5ForConditionalGeneration.from_pretrained(self.QG_MODEL).to(device)
         print("model finished")
         with open('output.txt', 'w') as f:
             sys.stdout = f
+            model = T5ForConditionalGeneration.from_pretrained(self.QG_MODEL).to(device)
             qg_dataset = load_dataset('text', data_files={'test': [self.wiki_file_path]}, sample_by='paragraph')
             sys.stdout = sys.__stdout__
         # this will load one paragraph at a time
