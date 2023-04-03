@@ -7,9 +7,8 @@ import argparse
 import logging
 import torch
 from torch.utils.data import DataLoader
-# logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO)
 from transformers import (
-    T5TokenizerFast,
     T5ForConditionalGeneration, T5Tokenizer
 )
 from datasets import load_dataset,utils
@@ -19,6 +18,7 @@ from datasets import load_dataset,utils
 class T5SmallQuestionGenerator:
 
     def __init__(self,wiki_file_path,nquestions):
+        print("small init")
         self.QA_MODEL = 'deepset/tinyroberta-squad2'
         self.QG_MODEL = 'allenai/t5-small-squad2-question-generation'
         self.wiki_file_path = wiki_file_path
