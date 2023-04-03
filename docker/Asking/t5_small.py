@@ -16,7 +16,6 @@ from datasets import load_dataset,utils
 class T5SmallQuestionGenerator:
 
     def __init__(self,wiki_file_path,nquestions):
-        print("small init")
         self.QA_MODEL = 'deepset/tinyroberta-squad2'
         self.QG_MODEL = 'allenai/t5-small-squad2-question-generation'
         self.wiki_file_path = wiki_file_path
@@ -30,10 +29,10 @@ class T5SmallQuestionGenerator:
         print("generate")
         logging.getLogger('datasets').setLevel(logging.CRITICAL)
         utils.disable_progress_bar()
-        tokenizer = T5Tokenizer.from_pretrained(self.QG_MODEL)
         print("model finished")
         with open('output.txt', 'w') as f:
             sys.stdout = f
+            tokenizer = T5Tokenizer.from_pretrained(self.QG_MODEL)
             model = T5ForConditionalGeneration.from_pretrained(self.QG_MODEL).to(device)
             qg_dataset = load_dataset('text', data_files={'test': [self.wiki_file_path]}, sample_by='paragraph')
             sys.stdout = sys.__stdout__
