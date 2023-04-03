@@ -27,7 +27,7 @@ class QuestionGenerator:
         QG_PRETRAINED = "iarfmoose/t5-base-question-generator"
         self.ANSWER_TOKEN = "<answer>"
         self.CONTEXT_TOKEN = "<context>"
-        self.SEQ_LENGTH = 1024
+        self.SEQ_LENGTH = 256
 
         self.device = torch.device(
             "cuda" if torch.cuda.is_available() else "cpu")
