@@ -60,7 +60,7 @@ class QAModel:
 		self.batch_size = batch_size
 		set_random_seed()
 		self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
-		self.qa_model = AutoModelForQuestionAnswering.from_pretrained(self.model_name).to(DEVICE)
+		self.qa_model = AutoModelForQuestionAnswering.from_pretrained(self.model_name).to(self.device)
 
 	@classmethod
 	def from_config_dict(cls, model, device, config):
