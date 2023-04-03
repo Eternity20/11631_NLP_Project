@@ -1,20 +1,9 @@
-huggingface-hub==0.13.3
-kiwisolver==1.4.4
-matplotlib==3.6.1
-multidict==5.1.0
-pandas==1.4.4
-protobuf==3.14.0
-pyarrow==11.0.0
-python-socks==1.1.2
-PyYAML==6.0
-responses==0.18.0
-sarge==0.1.7.post1
-scipy==1.9.1
-sentencepiece==0.1.97
-tfrecord==1.11
-tokenizers==0.13.2
-torch==1.8.2
-torchaudio==0.8.2
-torchvision==0.9.2
-transformers==4.27.3
+datasets==1.16.1
+en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-2.3.1/en_core_web_sm-2.3.1.tar.gz
+numpy==1.22.0
+sentencepiece==0.1.96
+spacy==2.3.1
+tokenizers==0.10.3
+torch==1.7.1
+transformers==4.12.5
 
