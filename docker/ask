@@ -13,8 +13,7 @@ from transformers import (
     T5ForConditionalGeneration, T5Tokenizer
 )
 from datasets import load_dataset,utils
-import json
-import numpy as np
+
 
 QA_MODEL = 'deepset/tinyroberta-squad2'
 QG_MODEL = 'allenai/t5-small-squad2-question-generation'
