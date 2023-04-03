@@ -2,8 +2,6 @@
 # -*- coding:utf8 -*-
 
 import sys
-import os
-import argparse
 import logging
 import torch
 from torch.utils.data import DataLoader
@@ -29,10 +27,12 @@ class T5SmallQuestionGenerator:
             device = torch.device('cuda')
         else:
             device = torch.device('cpu')
+        print("generate")
         logging.getLogger('datasets').setLevel(logging.CRITICAL)
         utils.disable_progress_bar()
         tokenizer = T5Tokenizer.from_pretrained(self.QG_MODEL)
         model = T5ForConditionalGeneration.from_pretrained(self.QG_MODEL).to(device)
+        print("model finished")
         with open('output.txt', 'w') as f:
             sys.stdout = f
             qg_dataset = load_dataset('text', data_files={'test': [self.wiki_file_path]}, sample_by='paragraph')
@@ -54,10 +54,10 @@ class T5SmallQuestionGenerator:
         return questions_generated
 
 
-# if __name__ == '__main__':
-#     input_file = sys.argv[1]
-#     N = int(sys.argv[2])
-#     qg = T5SmallQuestionGenerator(input_file,N)
-#     generated_questions = qg.generate_questions()
-#     for question in generated_questions:
-#         print(f'{question}')
+if __name__ == '__main__':
+    input_file = sys.argv[1]
+    N = int(sys.argv[2])
+    qg = T5SmallQuestionGenerator(input_file,N)
+    generated_questions = qg.generate_questions()
+    for question in generated_questions:
+        print(f'{question}')
