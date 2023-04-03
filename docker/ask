@@ -47,7 +47,7 @@ from datasets import load_dataset, utils
 #                 output = tokenizer.batch_decode(res, skip_special_tokens=True)
 #                 questions_generated.extend(output)
 #     return questions_generated
-import en_core_web_sm
+import spacy
 import json
 import numpy as np
 import random
@@ -246,7 +246,7 @@ class QuestionGenerator:
         questions. Sentences are used as context, and entities as answers. Returns a tuple of (model inputs, answers).
         Model inputs are "answer_token <answer text> context_token <context text>"
         """
-        spacy_nlp = en_core_web_sm.load()
+        spacy_nlp = spacy.load("en_core_web_sm")
         docs = list(spacy_nlp.pipe(sentences, disable=["parser"]))
         inputs_from_text = []
         answers_from_text = []
@@ -479,6 +479,7 @@ def print_qa(qa_list: List[Mapping[str, str]], show_answers: bool = True) -> Non
 
 
 if __name__ == '__main__':
+    print('hello')
     input_file = sys.argv[1]
     N = int(sys.argv[2])
     print(input_file)
