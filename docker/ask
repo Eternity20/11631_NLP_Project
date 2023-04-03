@@ -2,12 +2,12 @@
 # -*- coding:utf8 -*-
 
 import sys
-sys.path.append("/Users/zzy/Desktop/ZZY/CMU/23Spring/11611/QA_QG/11631_NLP_Project/Asking")
-#from Asking.t5_small import T5SmallQuestionGenerator
-from Asking.t5_boolean import YesNoQuestionGenerator
-# from Asking.advance_qg import QuestionGenerator
-# from Asking.advance_qg import print_qa
 
+sys.path.append("/Users/zzy/Desktop/ZZY/CMU/23Spring/11611/QA_QG/11631_NLP_Project/Asking")
+# from Asking.t5_small import T5SmallQuestionGenerator
+# from Asking.t5_boolean import YesNoQuestionGenerator
+from Asking.advance_qg import QuestionGenerator
+from Asking.advance_qg import print_qa
 
 if __name__ == '__main__':
     input_file = sys.argv[1]
@@ -17,10 +17,20 @@ if __name__ == '__main__':
     # for question in generated_questions:
     #     print(f'{question}')
 
-    with open(input_file, encoding="UTF-8") as a:
-            article = a.read()
+    # with open(input_file, encoding="UTF-8") as a:
+    #         article = a.read()
+    #
+    # qg = YesNoQuestionGenerator(article, N)
+    # output = qg.generate()
+    # for out in output:
+    #         print(out)
 
-    qg = YesNoQuestionGenerator(article, N)
-    output = qg.generate()
-    for out in output:
-            print(out)
+    with open(input_file, encoding="UTF-8") as a:
+        article = a.read()
+    qg = QuestionGenerator()
+    qa_list = qg.generate(
+        article,
+        num_questions=10,
+        answer_style='sentences'
+    )
+    print_qa(qa_list, show_answers=False)
