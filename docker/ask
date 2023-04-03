@@ -481,8 +481,10 @@ def print_qa(qa_list: List[Mapping[str, str]], show_answers: bool = True) -> Non
 if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
+    print(input_file)
+    print(N)
+    print("build the model")
     qg = QuestionGenerator()
-
     # generated_questions = generate_questions(input_file, N)
     # for question in generated_questions:
     #     print(f'{question}')
