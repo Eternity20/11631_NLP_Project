@@ -19,6 +19,7 @@ sudo docker run hello-world
 #--------build image-------------------------------------------------
 sudo docker login
 sudo docker build -t qaqg .
+sudo docker build --no-cache -t qaqg .
 #--------test-------------------------------------------------------
 sudo ./test.sh qaqg
 #-------------------------------------------------------------------
