@@ -24,8 +24,11 @@ RUN pip3 install -r requirements.txt
 RUN mkdir /QA
 ADD ask /QA
 ADD answer /QA
+ADD data /QA/data
+ADD test_questions.txt /QA
 RUN chmod a+x QA/ask
 RUN chmod a+x QA/answer
+
 
 # Change the permissions of programs
 CMD ["chmod 777 /QA/*"]
