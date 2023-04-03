@@ -22,9 +22,9 @@ RUN pip3 install -r requirements.txt
 
 # Add the files into container, under QA folder, modify this based on your need
 RUN mkdir /QA
-ADD ask3 /QA
+ADD ask3.py /QA
 ADD answer /QA
-RUN chmod a+x QA/ask3
+RUN chmod a+x QA/ask3.py
 RUN chmod a+x QA/answer
 
 # Change the permissions of programs
