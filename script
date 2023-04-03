@@ -28,3 +28,7 @@ docker rm -f CONTAINER_ID
 sudo docker rmi 4423d5e3ddae
 #set permission
 chmod a+x docker
+
+sudo docker stop $(sudo docker ps -a -q)
+sudo docker rm $(sudo docker ps -a -q)
+sudo docker rmi $(sudo docker images -q)

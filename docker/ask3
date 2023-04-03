@@ -440,7 +440,7 @@ if __name__ == '__main__':
     print("begin")
     qa_list = qg.generate(
         article,
-        num_questions=10,
+        num_questions=N,
         answer_style='sentences'
     )
     print("done")
