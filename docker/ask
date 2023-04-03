@@ -13,11 +13,11 @@ if __name__ == '__main__':
     input_file = sys.argv[1]
     N = int(sys.argv[2])
 
-    with open('output.txt', 'w') as f:
-        sys.stdout = f
-        qg = T5SmallQuestionGenerator(input_file, N)
-        generated_questions = qg.generate_questions()
-        sys.stdout = sys.__stdout__
+    # with open('output.txt', 'w') as f:
+    #     sys.stdout = f
+    qg = T5SmallQuestionGenerator(input_file, N)
+    generated_questions = qg.generate_questions()
+        # sys.stdout = sys.__stdout__
 
     for question in generated_questions:
         print(f'{question}')
