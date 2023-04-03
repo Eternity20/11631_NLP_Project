@@ -15,7 +15,6 @@ logging.basicConfig(level=logging.CRITICAL)
 class T5SmallQuestionGenerator:
 
     def __init__(self,wiki_file_path,nquestions):
-        print("init")
         self.QA_MODEL = 'deepset/tinyroberta-squad2'
         self.QG_MODEL = 'allenai/t5-small-squad2-question-generation'
         self.wiki_file_path = wiki_file_path
