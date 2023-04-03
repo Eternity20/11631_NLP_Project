@@ -9,7 +9,9 @@ from mymodels.QAProjectModel import QAProjectModel
 from utils import set_device
 
 #QA_MODEL = 'deepset/tinyroberta-squad2'
-QA_MODEL = 'deepset/roberta-base-squad2-distilled'
+#QA_MODEL = 'deepset/roberta-base-squad2-distilled'
+QA_MODEL = 'deepset/roberta-large-squad2'
+#QA_MODEL = 'VMware/roberta-large-mrqa'
 
 def answer_questions(wiki_doc, questions, loaded_conf_dict):
 	device = set_device()
