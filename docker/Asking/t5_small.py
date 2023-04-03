@@ -26,16 +26,11 @@ class T5SmallQuestionGenerator:
             device = torch.device('cuda')
         else:
             device = torch.device('cpu')
-        print("generate")
         logging.getLogger('datasets').setLevel(logging.CRITICAL)
         utils.disable_progress_bar()
-        print("model finished")
-        with open('output.txt', 'w') as f:
-            sys.stdout = f
-            tokenizer = T5Tokenizer.from_pretrained(self.QG_MODEL)
-            model = T5ForConditionalGeneration.from_pretrained(self.QG_MODEL).to(device)
-            qg_dataset = load_dataset('text', data_files={'test': [self.wiki_file_path]}, sample_by='paragraph')
-            sys.stdout = sys.__stdout__
+        tokenizer = T5Tokenizer.from_pretrained(self.QG_MODEL)
+        model = T5ForConditionalGeneration.from_pretrained(self.QG_MODEL).to(device)
+        qg_dataset = load_dataset('text', data_files={'test': [self.wiki_file_path]}, sample_by='paragraph')
         # this will load one paragraph at a time
         qg_dataloader = DataLoader(qg_dataset['test'], batch_size=1, num_workers=1)
         questions_generated = []
