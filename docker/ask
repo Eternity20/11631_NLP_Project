@@ -21,11 +21,12 @@ def generate_questions(wiki_file_path, nr_questions):
         device = torch.device('cuda')
     else:
         device = torch.device('cpu')
-
+    print("load model")
     logging.getLogger('datasets').setLevel(logging.CRITICAL)
     utils.disable_progress_bar()
     tokenizer = T5Tokenizer.from_pretrained(QG_MODEL)
     model = T5ForConditionalGeneration.from_pretrained(QG_MODEL).to(device)
+    print("load data finish")
     with open('output.txt', 'w') as f:
         sys.stdout = f
         qg_dataset = load_dataset('text', data_files={'test': [wiki_file_path]}, sample_by='paragraph')
