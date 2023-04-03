@@ -437,11 +437,13 @@ if __name__ == '__main__':
     qg = QuestionGenerator()
     with open(input_file, encoding="UTF-8") as a:
         article = a.read()
+    print("begin")
     qa_list = qg.generate(
         article,
         num_questions=10,
         answer_style='sentences'
     )
+    print("done")
     print_qa(qa_list, show_answers=False)
 
 
