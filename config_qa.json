@@ -1,0 +1,1 @@
+{"max_length": 512, "truncation": "only_second", "padding": "max_length", "return_overflowing_tokens": true, "return_offsets_mapping": true, "stride": 128, "n_best_size": 25, "max_answer_length": 30, "batch_size": 16}
