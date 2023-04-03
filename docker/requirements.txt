@@ -1,4 +1,4 @@
-datasets==1.16.1
+datasets==2.10.1
 numpy==1.22.0
 sentencepiece==0.1.96
 tokenizers==0.13.2
