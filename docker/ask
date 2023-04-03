@@ -15,11 +15,19 @@ if __name__ == '__main__':
 
     with open('output.txt', 'w') as f:
         sys.stdout = f
-        qg = T5SmallQuestionGenerator(input_file, N)
-        generated_questions = qg.generate_questions()
+
+        qg_small = T5SmallQuestionGenerator(input_file, N)
+        small_questions = qg_small.generate_questions()
+
+        with open(input_file, encoding="UTF-8") as a:
+            article = a.read()
+        qg_yesNo = YesNoQuestionGenerator(article, N)
+        yesNo_questions = qg_yesNo.generate()
         sys.stdout = sys.__stdout__
 
-    for question in generated_questions:
+    for question in small_questions:
+        print(f'{question}')
+    for question in yesNo_questions:
         print(f'{question}')
 
     # with open(input_file, encoding="UTF-8") as a:
