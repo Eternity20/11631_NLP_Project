@@ -18,7 +18,11 @@ QA_MODEL = 'deepset/tinyroberta-squad2'
 QG_MODEL = 'allenai/t5-small-squad2-question-generation'
 
 #----------new---------------
-import spacy
+import json
+import numpy as np
+import random
+import re
+import torch
 def generate_questions(wiki_file_path, nr_questions):
     if torch.cuda.is_available():
         device = torch.device('cuda')
