@@ -18,7 +18,6 @@ contourpy==1.0.5
 crc32c==2.1
 cryptography
 cycler==0.11.0
-datasets==2.10.1
 dill==0.3.6
 dnspython==2.0.0
 #Electrum==4.0.9
