@@ -10,7 +10,6 @@ from transformers import (
 )
 from datasets import load_dataset
 
-QA_MODEL = 'deepset/tinyroberta-squad2'
 QG_MODEL = 'allenai/t5-small-squad2-question-generation'
 
 def generate_questions(wiki_file_path, nr_questions):
@@ -34,7 +33,7 @@ def generate_questions(wiki_file_path, nr_questions):
 			if len(input_string['text'][0]) < 20: # minimum context to generate question
 				continue
 			else:
-				input_ids = tokenizer.encode(input_string['text'][0], return_tensors="pt").to(device)
+				input_ids = tokenizer.encode(input_string['text'][0], return_tensors="pt", max_length=384).to(device)
 				res = model.generate(input_ids, max_length=40)
 				output = tokenizer.batch_decode(res, skip_special_tokens=True)
 				questions_generated.extend(output)
