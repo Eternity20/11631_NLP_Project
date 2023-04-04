@@ -38,4 +38,4 @@ sudo docker system prune --all --force --volumes
 
 docker tag qaqg zhongyue/qaqg:cpu
 sudo ./test.sh zhongyue/qaqg:cpu
-docker push zhongyue/qaqg:cpu
+sudo docker push zhongyue/qaqg:cpu
