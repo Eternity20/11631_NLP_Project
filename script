@@ -1,0 +1,41 @@
+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
+git clone https://github.com/Eternity20/11631_NLP_Project.git -b maggie
+git reset --hard 4efa929377864a3205aa5448926c3db6d009f066
+#---------install docker--------------------------------------------
+sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt-get update
+sudo apt-get install \
+    ca-certificates \
+    curl \
+    gnupg
+sudo mkdir -m 0755 -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo docker run hello-world
+#--------build image-------------------------------------------------
+sudo docker login
+sudo docker build -t qaqg .
+sudo docker build --no-cache -t qaqg .
+#--------test-------------------------------------------------------
+sudo ./test.sh qaqg
+#-------------------------------------------------------------------
+docker images
+docker ps
+docker rm -f CONTAINER_ID
+sudo docker rmi 4423d5e3ddae
+#set permission
+chmod a+x docker
+sudo docker stop $(sudo docker ps -a -q)
+sudo docker rm $(sudo docker ps -a -q)
+sudo docker rmi $(sudo docker images -q)
+sudo docker system prune --all --force
+sudo docker system prune --all --force --volumes
+
+docker tag qaqg zhongyue/qaqg:cpu
+sudo ./test.sh zhongyue/qaqg:cpu
+sudo docker push zhongyue/qaqg:cpu
