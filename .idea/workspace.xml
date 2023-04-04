@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c6de9be-923a-4f70-af44-a0e59f6bb270" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Asking/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Asking/advance_qg.py" beforeDir="false" afterPath="$PROJECT_DIR$/Asking/advance_qg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Asking/t5_boolean.py" beforeDir="false" afterPath="$PROJECT_DIR$/Asking/t5_boolean.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Asking/t5_small.py" beforeDir="false" afterPath="$PROJECT_DIR$/Asking/t5_small.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker/ask" beforeDir="false" afterPath="$PROJECT_DIR$/docker/ask" afterDir="false" />
-    </list>
+    <list default="true" id="7c6de9be-923a-4f70-af44-a0e59f6bb270" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -80,6 +74,7 @@
       <workItem from="1680509270445" duration="301000" />
       <workItem from="1680509829485" duration="104000" />
       <workItem from="1680510134053" duration="51000" />
+      <workItem from="1680567835034" duration="317000" />
     </task>
     <servers />
   </component>
