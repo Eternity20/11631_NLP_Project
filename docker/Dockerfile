@@ -22,6 +22,7 @@ RUN python3 -m spacy download en_core_web_sm
 
 COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
+RUN pip3 install torch==1.13.1+rocm5.2 torchvision==0.14.1+rocm5.2 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/rocm5.2
 
 # Add the files into container, under QA folder, modify this based on your need
 RUN mkdir /QA
