@@ -55,7 +55,6 @@ if __name__ == '__main__':
 		predicted_answers = answer_questions(wiki_doc, questions, config_dict)
 		sys.stdout = sys.__stdout__
 
-	print("answer")
 	for answer in predicted_answers:
 		print(f"{answer['prediction_text']}")
 	sys.exit(0)
