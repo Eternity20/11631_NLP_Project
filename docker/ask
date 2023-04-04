@@ -57,16 +57,16 @@ if __name__ == '__main__':
     #         answer_style='sentences'
     #     )
     #
-    # # print t5 small dataset
-    # for question in small_questions:
-    #     print(f'{question}')
-    #
-    # # print yes or no dataset
-    # for question in yesNo_questions:
-    #     print(f'{question}')
-    #
-    # # print qa
-    # print_qa(qa_list, show_answers=False)
+    # print t5 small dataset
+    for question in small_questions:
+        print(f'{question}')
+
+    # print yes or no dataset
+    for question in yesNo_questions:
+        print(f'{question}')
+
+    # print qa
+    print_qa(qa_list, show_answers=False)
 
     # with open(input_file, encoding="UTF-8") as a:
     #     article = a.read()
