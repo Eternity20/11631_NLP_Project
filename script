@@ -1,5 +1,6 @@
 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
 git clone https://github.com/Eternity20/11631_NLP_Project.git -b maggie
+git reset --hard 4efa929377864a3205aa5448926c3db6d009f066
 #---------install docker--------------------------------------------
 sudo apt-get remove docker docker-engine docker.io containerd runc
 sudo apt-get update

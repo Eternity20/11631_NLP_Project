@@ -27,9 +27,9 @@ def answer_questions(wiki_doc, questions, loaded_conf_dict):
 
 
 def read_files(wiki_file_path:str, questions_file_path:str, config_file_path:str) -> Tuple[List[str], List[str], Any]:
-	config_dict = None
-	with open(config_file_path, 'r') as f:
-		config_dict = json.load(f)
+	config_dict ={"max_length": 512, "truncation": "only_second", "padding": "max_length", "return_overflowing_tokens": True, "return_offsets_mapping": True, "stride": 256, "n_best_size": 50, "max_answer_length": 100, "batch_size": 4}
+	# with open(config_file_path, 'r') as f:
+	# 	config_dict = json.load(f)
 
 	wiki_doc = []
 	with open(wiki_file_path, 'r') as f:
@@ -44,15 +44,17 @@ def read_files(wiki_file_path:str, questions_file_path:str, config_file_path:str
 
 
 if __name__ == '__main__':
-	logger = logging.getLogger(__name__)
-	parser = argparse.ArgumentParser()
-	parser.add_argument('--wiki_file_path', type=str, required=True)
-	parser.add_argument('--questions_file_path', type=str, required=True)
-	parser.add_argument('--config_file_path', type=str, default='config_qa.json', required=False)
-	args = parser.parse_args()
+	# logger = logging.getLogger(__name__)
+	# parser = argparse.ArgumentParser()
+	# parser.add_argument('--wiki_file_path', type=str, required=True)
+	# parser.add_argument('--questions_file_path', type=str, required=True)
+	# parser.add_argument('--config_file_path', type=str, default='config_qa.json', required=False)
+	# args = parser.parse_args()
+	wiki_file_path = sys.argv[1]
+	questions_file_path = sys.argv[2]
 
 	wiki_doc, questions, config_dict = \
-		read_files(args.wiki_file_path, args.questions_file_path, args.config_file_path)
+		read_files(wiki_file_path, questions_file_path)
 
 	predicted_answers = answer_questions(wiki_doc, questions, config_dict)
 	for answer in predicted_answers:
