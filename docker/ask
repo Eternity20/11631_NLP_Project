@@ -15,29 +15,47 @@ if __name__ == '__main__':
     N = int(sys.argv[2])
     N_A = int(N / 3)
     N_small = int(N / 3)
-    N_yesNo = N-N_small-N_A
+    N_yesNo = N - N_small - N_A
 
-    with open('output.txt', 'w') as f:
-        sys.stdout = f
-        qg_small = T5SmallQuestionGenerator(input_file, N_small)
-        small_questions = qg_small.generate_questions()
+    # with open('output.txt', 'w') as f:
+    #     sys.stdout = f
+    #     qg_small = T5SmallQuestionGenerator(input_file, N_small)
+    #     small_questions = qg_small.generate_questions()
+    #
+    #     with open(input_file, encoding="UTF-8") as a:
+    #         article = a.read()
+    #
+    #     if N_yesNo > 0:
+    #         qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
+    #         yesNo_questions = qg_yesNo.generate()
+    #
+    #     if N_A>0:
+    #         qg = QuestionGenerator()
+    #         qa_list = qg.generate(
+    #             article,
+    #             num_questions=N_A,
+    #             answer_style='sentences'
+    #         )
+    #
+    #     sys.stdout = sys.__stdout__
 
-        with open(input_file, encoding="UTF-8") as a:
-            article = a.read()
+    qg_small = T5SmallQuestionGenerator(input_file, N_small)
+    small_questions = qg_small.generate_questions()
 
-        if N_yesNo > 0:
-            qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
-            yesNo_questions = qg_yesNo.generate()
+    with open(input_file, encoding="UTF-8") as a:
+        article = a.read()
 
-        if N_A>0:
-            qg = QuestionGenerator()
-            qa_list = qg.generate(
-                article,
-                num_questions=N_A,
-                answer_style='sentences'
-            )
+    if N_yesNo > 0:
+        qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
+        yesNo_questions = qg_yesNo.generate()
 
-        sys.stdout = sys.__stdout__
+    if N_A > 0:
+        qg = QuestionGenerator()
+        qa_list = qg.generate(
+            article,
+            num_questions=N_A,
+            answer_style='sentences'
+        )
 
     # print t5 small dataset
     for question in small_questions:
