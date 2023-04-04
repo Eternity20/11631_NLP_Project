@@ -5,9 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7c6de9be-923a-4f70-af44-a0e59f6bb270" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/docker/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script" beforeDir="false" afterPath="$PROJECT_DIR$/script" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/answer" beforeDir="false" afterPath="$PROJECT_DIR$/docker/answer" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mydatasets/QADataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/docker/mydatasets/QADataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mydatasets/QAProjectDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/docker/mydatasets/QAProjectDataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mydatasets/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/docker/mydatasets/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mymodels/QAProjectModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/docker/mymodels/QAProjectModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mymodels/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/docker/mymodels/__init__.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +42,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docker" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="ask" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="11631_NLP_Project" />
@@ -78,7 +87,7 @@
       <workItem from="1680509270445" duration="301000" />
       <workItem from="1680509829485" duration="104000" />
       <workItem from="1680510134053" duration="51000" />
-      <workItem from="1680567835034" duration="1096000" />
+      <workItem from="1680567835034" duration="1453000" />
     </task>
     <servers />
   </component>

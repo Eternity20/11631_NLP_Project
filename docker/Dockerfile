@@ -28,9 +28,15 @@ RUN mkdir /QA
 ADD ask /QA
 ADD answer /QA
 ADD Asking /QA/Asking
+ADD mydatasets /QA/mydatasets
+ADD mymodels /QA/mymodels
+ADD utils.py /QA/utils.py
 RUN chmod a+x QA/ask
 RUN chmod a+x QA/answer
 RUN chmod a+x QA/Asking
+RUN chmod a+x QA/mydatasets
+RUN chmod a+x QA/mymodels
+RUN chmod a+x QA/utils.py
 
 # Change the permissions of programs
 CMD ["chmod 777 /QA/*"]
