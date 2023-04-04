@@ -1,2 +1,0 @@
-./ask.sh data/wikipedia_text/pokemon_characters/bulbasaur_pokemon.txt 10
-

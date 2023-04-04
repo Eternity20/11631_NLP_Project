@@ -7,6 +7,8 @@ from torch.utils.data import DataLoader
 from mydatasets.QAProjectDataset import QAProjectDataset
 from mymodels.QAProjectModel import QAProjectModel
 from utils import set_device
+import logging
+logging.basicConfig(level=logging.CRITICAL)
 
 #QA_MODEL = 'deepset/tinyroberta-squad2'
 #QA_MODEL = 'deepset/roberta-base-squad2-distilled'
@@ -48,7 +50,7 @@ if __name__ == '__main__':
 	wiki_doc, questions, config_dict = \
 		read_files(wiki_file_path, questions_file_path)
 
-	with open('output.txt', 'w') as f:
+	with open('output2.txt', 'w') as f:
 		sys.stdout = f
 		predicted_answers = answer_questions(wiki_doc, questions, config_dict)
 		sys.stdout = sys.__stdout__

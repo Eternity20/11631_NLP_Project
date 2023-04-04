@@ -4,7 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c6de9be-923a-4f70-af44-a0e59f6bb270" name="Changes" comment="" />
+    <list default="true" id="7c6de9be-923a-4f70-af44-a0e59f6bb270" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/docker.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/answer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/answer.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ask.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ask.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config_qa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/how_to_run_examples.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/qa.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/script" beforeDir="false" afterPath="$PROJECT_DIR$/script" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,7 +91,7 @@
       <workItem from="1680509270445" duration="301000" />
       <workItem from="1680509829485" duration="104000" />
       <workItem from="1680510134053" duration="51000" />
-      <workItem from="1680567835034" duration="6276000" />
+      <workItem from="1680567835034" duration="6999000" />
     </task>
     <servers />
   </component>
