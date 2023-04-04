@@ -42,19 +42,17 @@ def read_files(wiki_file_path:str, questions_file_path:str) -> Tuple[List[str], 
 
 
 if __name__ == '__main__':
-	# logger = logging.getLogger(__name__)
-	# parser = argparse.ArgumentParser()
-	# parser.add_argument('--wiki_file_path', type=str, required=True)
-	# parser.add_argument('--questions_file_path', type=str, required=True)
-	# parser.add_argument('--config_file_path', type=str, default='config_qa.json', required=False)
-	# args = parser.parse_args()
 	wiki_file_path = sys.argv[1]
 	questions_file_path = sys.argv[2]
 
 	wiki_doc, questions, config_dict = \
 		read_files(wiki_file_path, questions_file_path)
 
-	predicted_answers = answer_questions(wiki_doc, questions, config_dict)
+	with open('output.txt', 'w') as f:
+		sys.stdout = f
+		predicted_answers = answer_questions(wiki_doc, questions, config_dict)
+		sys.stdout = sys.__stdout__
+
 	for answer in predicted_answers:
 		print(f"{answer['prediction_text']}")
 	sys.exit(0)
