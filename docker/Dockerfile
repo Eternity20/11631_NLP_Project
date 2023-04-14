@@ -26,7 +26,7 @@ RUN pip3 install -U spacy
 RUN python3 -m spacy download en_core_web_sm
 
 COPY requirements.txt requirements.txt
-RUN pip3 install torch==1.13.1+cu120 -f https://download.pytorch.org/whl/cu120/torch_stable.html
+RUN pip3 install torch==1.9.0+cu120 -f https://download.pytorch.org/whl/cu120/torch_stable.html
 RUN pip3 install -r requirements.txt
 
 # Add the files into container, under QA folder, modify this based on your need

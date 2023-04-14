@@ -35,7 +35,7 @@ sudo docker rm $(sudo docker ps -a -q)
 sudo docker rmi $(sudo docker images -q)
 sudo docker system prune --all --force
 sudo docker system prune --all --force --volumes
-sudo docker build -t --gpus qaqg .
+sudo docker build -t qaqg .
 
 docker tag qaqg zhongyue/qaqg:cpu
 sudo ./test.sh zhongyue/qaqg:cpu
