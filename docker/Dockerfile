@@ -5,6 +5,11 @@ FROM nvidia/cuda:12.0.0-base-ubuntu20.04
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
+# set with GPU
+# nvidia-container-runtime
+ENV NVIDIA_VISIBLE_DEVICES all
+ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+
 # Install Python
 RUN apt-get -y update && \
     apt-get -y upgrade
