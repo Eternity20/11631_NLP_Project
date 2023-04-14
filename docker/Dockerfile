@@ -27,7 +27,9 @@ RUN python3 -m spacy download en_core_web_sm
 
 COPY requirements.txt requirements.txt
 #RUN pip3 install torch==1.9.0+cu120 -f https://download.pytorch.org/whl/cu120/torch_stable.html
-RUN pip3 install torch==1.9.0+cu120 -f https://download.pytorch.org/whl/cu120/torch_stable.html
+#RUN pip3 install torch==1.9.0+cu120 -f https://download.pytorch.org/whl/cu120/torch_stable.html
+RUN pip3 install torch torchvision torchaudio -f https://download.pytorch.org/whl/cu111/torch_stable.html
+
 
 RUN pip3 install -r requirements.txt
 
