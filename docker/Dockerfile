@@ -1,14 +1,11 @@
 # Ubuntu Linux as the base image
-FROM nvidia/cuda:12.0.0-cudnn8-runtime-ubuntu20.04
+FROM nvidia/cuda:12.0.0-base-ubuntu20.04
+CMD nvidia-smi
 
 # Set UTF-8 encoding
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 
-# set with GPU
-# nvidia-container-runtime
-ENV NVIDIA_VISIBLE_DEVICES all
-ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 
 # Install Python
 RUN apt-get -y update && \
@@ -41,6 +38,7 @@ ADD Asking /QA/Asking
 ADD mydatasets /QA/mydatasets
 ADD mymodels /QA/mymodels
 ADD utils.py /QA/utils.py
+ADD gpu_test.py /QA/gpu_test.py
 RUN chmod a+x QA/ask
 RUN chmod a+x QA/answer
 RUN chmod a+x QA/Asking
