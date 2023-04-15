@@ -55,8 +55,10 @@ sudo apt install docker.io
 1, choose
 2, use p3.2xlarge
 
-docker run -it qaqg /bin/bash --gpus all nvidia/cuda:12.0.0-base-ubuntu20.04 nvidia-smi
+docker run --gpus all -it qaqg /bin/bash nvidia/cuda:12.0.0-base-ubuntu20.04 nvidia-smi
 docker run -it --gpus all nvidia/cuda:12.0.0-base-ubuntu20.04 nvidia-smi
 docker run -it --gpus all nvidia/cuda:11.4.0-base-ubuntu20.04 nvidia-smi
 
 export CUDA_VISIBLE_DEVICES=0
+docker run --runtime=nvidia -it qaqg /bin/bash
+docker run --runtime=nvidia
