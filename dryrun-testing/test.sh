@@ -8,4 +8,4 @@ docker exec -i $NAME ./ask /host/Users/a7.txt 5 2>/dev/null
 #echo '****************'
 #docker stop $NAME >/dev/null
 
-docker run -v /home/ubuntu/11631_NLP_Project/dryrun-testing:/host/Users -it zhongyue/qaqg:gpu /bin/bash
+docker run -v /home/ubuntu/11631_NLP_Project/dryrun-testing:/host/Users -it qaqg /bin/bash
