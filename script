@@ -62,3 +62,22 @@ docker run -it --gpus all nvidia/cuda:11.4.0-base-ubuntu20.04 nvidia-smi
 export CUDA_VISIBLE_DEVICES=0
 docker run --runtime=nvidia -it qaqg /bin/bash
 docker run --runtime=nvidia
+
+
+
+sudo apt-get update
+sudo apt-get dist-upgrade
+lspci -nnk | grep VGA -A8
+curl -O https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-12-0_12.0.0-1_amd64.deb
+sudo dpkg -i cuda-12-0_12.0.0-1_amd64.deb
+sudo apt-get update
+sudo apt-get install cuda
+
+
+https://levelup.gitconnected.com/how-to-install-an-nvidia-gpu-driver-on-an-aws-ec2-instance-20185c1c578c
+sudo apt-get update
+sudo apt-get upgrade
+sudo reboot
+sudo apt-get install xorg
+sudo apt-get install nvidia-driver-470
+sudo reboot
