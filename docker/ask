@@ -27,7 +27,9 @@ if __name__ == '__main__':
             article = a.read()
         print("yes")
         if N_yesNo > 0:
+            print("3")
             qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
+            print("4")
             yesNo_questions = qg_yesNo.generate()
         print("QG")
         if N_A>0:
