@@ -16,70 +16,65 @@ if __name__ == '__main__':
     N_A = int(N / 3)
     N_small = int(N / 3)
     N_yesNo = N - N_small - N_A
-    # print("1")
-    # with open('output.txt', 'w') as f:
-    #     print("small")
-    #     sys.stdout = f
-    #     qg_small = T5SmallQuestionGenerator(input_file, N_small)
-    #     small_questions = qg_small.generate_questions()
-    #
-    #     with open(input_file, encoding="UTF-8") as a:
-    #         article = a.read()
-    #     print("yes")
-    #     if N_yesNo > 0:
-    #         print("3")
-    #         qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
-    #         print("4")
-    #         yesNo_questions = qg_yesNo.generate()
-    #     print("QG")
-    #     if N_A>0:
-    #         qg = QuestionGenerator()
-    #         qa_list = qg.generate(
-    #             article,
-    #             num_questions=N_A,
-    #             answer_style='sentences'
-    #         )
-    #
-    #     sys.stdout = sys.__stdout__
-    #
-    # # qg_small = T5SmallQuestionGenerator(input_file, N_small)
-    # # small_questions = qg_small.generate_questions()
-    # #
-    # # with open(input_file, encoding="UTF-8") as a:
-    # #     article = a.read()
-    # #
-    # # if N_yesNo > 0:
-    # #     qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
-    # #     yesNo_questions = qg_yesNo.generate()
-    # #
-    # # if N_A > 0:
-    # #     qg = QuestionGenerator()
-    # #     qa_list = qg.generate(
-    # #         article,
-    # #         num_questions=N_A,
-    # #         answer_style='sentences'
-    # #     )
-    # #
-    # # print t5 small dataset
-    # for question in small_questions:
-    #     print(f'{question}')
-    #
-    # # print yes or no dataset
-    # for question in yesNo_questions:
-    #     print(f'{question}')
-    #
-    # # print qa
-    # print_qa(qa_list, show_answers=False)
 
-    with open(input_file, encoding="UTF-8") as a:
-        article = a.read()
-    print("yes no")
-    qg = YesNoQuestionGenerator(article, N)
-    print("output")
-    output = qg.generate()
-    print("finally")
-    for out in output:
-        print(out)
+    with open('output.txt', 'w') as f:
+        sys.stdout = f
+        qg_small = T5SmallQuestionGenerator(input_file, N_small)
+        small_questions = qg_small.generate_questions()
+
+        with open(input_file, encoding="UTF-8") as a:
+            article = a.read()
+
+        if N_yesNo > 0:
+            qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
+            yesNo_questions = qg_yesNo.generate()
+
+        if N_A>0:
+            qg = QuestionGenerator()
+            qa_list = qg.generate(
+                article,
+                num_questions=N_A,
+                answer_style='sentences'
+            )
+
+        sys.stdout = sys.__stdout__
+
+    # qg_small = T5SmallQuestionGenerator(input_file, N_small)
+    # small_questions = qg_small.generate_questions()
+    #
+    # with open(input_file, encoding="UTF-8") as a:
+    #     article = a.read()
+    #
+    # if N_yesNo > 0:
+    #     qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
+    #     yesNo_questions = qg_yesNo.generate()
+    #
+    # if N_A > 0:
+    #     qg = QuestionGenerator()
+    #     qa_list = qg.generate(
+    #         article,
+    #         num_questions=N_A,
+    #         answer_style='sentences'
+    #     )
+    #
+    # print t5 small dataset
+    for question in small_questions:
+        print(f'{question}')
+
+    # print yes or no dataset
+    for question in yesNo_questions:
+        print(f'{question}')
+
+    # print qa
+    print_qa(qa_list, show_answers=False)
+
+    # with open(input_file, encoding="UTF-8") as a:
+    #     article = a.read()
+    #
+    # qg = YesNoQuestionGenerator(article, N)
+    # output = qg.generate()
+    # for out in output:
+    #     print(out)
 
     # with open(input_file, encoding="UTF-8") as a:
     #     article = a.read()
