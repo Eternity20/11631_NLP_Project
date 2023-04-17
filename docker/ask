@@ -75,7 +75,9 @@ if __name__ == '__main__':
         article = a.read()
     print("yes no")
     qg = YesNoQuestionGenerator(article, N)
+    print("output")
     output = qg.generate()
+    print("finally")
     for out in output:
         print(out)
 
