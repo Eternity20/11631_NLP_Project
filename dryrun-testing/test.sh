@@ -1,6 +1,6 @@
 SHARE=$(pwd)
 IMAGE=$1
-NAME=$(docker run -d -v ${SHARE}:/host/Users -it ${IMAGE} /bin/bash)
+NAME=$(docker run --runtime=nvidia -d -v ${SHARE}:/host/Users -it ${IMAGE} /bin/bash)
 echo '****************'
 docker exec -i $NAME ./ask /host/Users/a7.txt 5 2>/dev/null
 #echo '****************'
