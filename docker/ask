@@ -16,19 +16,20 @@ if __name__ == '__main__':
     N_A = int(N / 3)
     N_small = int(N / 3)
     N_yesNo = N - N_small - N_A
-
+    print("1")
     with open('output.txt', 'w') as f:
         sys.stdout = f
+        print("small")
         qg_small = T5SmallQuestionGenerator(input_file, N_small)
         small_questions = qg_small.generate_questions()
 
         with open(input_file, encoding="UTF-8") as a:
             article = a.read()
-
+        print("yes")
         if N_yesNo > 0:
             qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
             yesNo_questions = qg_yesNo.generate()
-
+        print("QG")
         if N_A>0:
             qg = QuestionGenerator()
             qa_list = qg.generate(
