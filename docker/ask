@@ -23,20 +23,20 @@ if __name__ == '__main__':
         qg_small = T5SmallQuestionGenerator(input_file, N_small)
         small_questions = qg_small.generate_questions()
 
-        # with open(input_file, encoding="UTF-8") as a:
-        #     article = a.read()
-        # print("yes")
-        # if N_yesNo > 0:
-        #     qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
-        #     yesNo_questions = qg_yesNo.generate()
-        # print("QG")
-        # if N_A>0:
-        #     qg = QuestionGenerator()
-        #     qa_list = qg.generate(
-        #         article,
-        #         num_questions=N_A,
-        #         answer_style='sentences'
-        #     )
+        with open(input_file, encoding="UTF-8") as a:
+            article = a.read()
+        print("yes")
+        if N_yesNo > 0:
+            qg_yesNo = YesNoQuestionGenerator(article, N_yesNo)
+            yesNo_questions = qg_yesNo.generate()
+        print("QG")
+        if N_A>0:
+            qg = QuestionGenerator()
+            qa_list = qg.generate(
+                article,
+                num_questions=N_A,
+                answer_style='sentences'
+            )
 
         sys.stdout = sys.__stdout__
 
@@ -62,10 +62,27 @@ if __name__ == '__main__':
     for question in small_questions:
         print(f'{question}')
 
-    # # print yes or no dataset
-    # for question in yesNo_questions:
-    #     print(f'{question}')
-    #
-    # # print qa
-    # print_qa(qa_list, show_answers=False)
+    # print yes or no dataset
+    for question in yesNo_questions:
+        print(f'{question}')
 
+    # print qa
+    print_qa(qa_list, show_answers=False)
+
+    # with open(input_file, encoding="UTF-8") as a:
+    #     article = a.read()
+    #
+    # qg = YesNoQuestionGenerator(article, N)
+    # output = qg.generate()
+    # for out in output:
+    #     print(out)
+
+    # with open(input_file, encoding="UTF-8") as a:
+    #     article = a.read()
+    # qg = QuestionGenerator()
+    # qa_list = qg.generate(
+    #     article,
+    #     num_questions=10,
+    #     answer_style='sentences'
+    # )
+    # print_qa(qa_list, show_answers=False)
