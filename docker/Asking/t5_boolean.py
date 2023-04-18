@@ -1,5 +1,6 @@
 import transformers
 transformers.logging.set_verbosity_error()
+transformers.logging.disable_progress_bar()
 import sentencepiece
 from transformers import T5ForConditionalGeneration,T5Tokenizer
 import torch

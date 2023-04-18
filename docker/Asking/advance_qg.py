@@ -6,6 +6,7 @@ import re
 import torch
 import transformers
 transformers.logging.set_verbosity_error()
+transformers.logging.disable_progress_bar()
 from transformers import (
     AutoTokenizer,
     AutoModelForSeq2SeqLM,
