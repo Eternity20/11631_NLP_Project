@@ -4,10 +4,8 @@ import logging
 logging.disable(level=logging.CRITICAL)
 
 import sys
-import logging
 from Asking.t5_small import T5SmallQuestionGenerator
 from Asking.t5_boolean import YesNoQuestionGenerator
-
 from Asking.advance_qg import QuestionGenerator
 from Asking.advance_qg import print_qa
 
