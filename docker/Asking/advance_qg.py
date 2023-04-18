@@ -5,14 +5,18 @@ import random
 import re
 import torch
 import transformers
-transformers.logging.set_verbosity_error()
-transformers.logging.disable_progress_bar()
+from tqdm import tqdm
+#transformers.logging.set_verbosity_error()
+#transformers.logging.disable_progress_bar()
 from transformers import (
     AutoTokenizer,
-    AutoModelForSeq2SeqLM,
+    #AutoModelForSeq2SeqLM,
     AutoModelForSequenceClassification,
+    T5ForConditionalGeneration,
+    T5TokenizerFast
 )
 from typing import Any, List, Mapping, Tuple
+from QGProjectDataset import QGProjectDataset
 import sys
 
 
@@ -29,20 +33,25 @@ class QuestionGenerator:
     def __init__(self) -> None:
 
         QG_PRETRAINED = "iarfmoose/t5-base-question-generator"
-        self.ANSWER_TOKEN = "<answer>"
-        self.CONTEXT_TOKEN = "<context>"
-        self.SEQ_LENGTH = 256
+        self.answer_token = "<answer>"
+        self.context_token = "<context>"
+        self.max_seq_length = 512
+        self.stride = 128
+        self.truncation=True
+        self.padding = "max_length"
+        self.return_overflowing_tokens = True
+        self.return_offsets_mapping = True
 
         self.device = torch.device(
             "cuda" if torch.cuda.is_available() else "cpu")
 
-        self.qg_tokenizer = AutoTokenizer.from_pretrained(
-            QG_PRETRAINED, use_fast=False)
-        self.qg_model = AutoModelForSeq2SeqLM.from_pretrained(QG_PRETRAINED)
+        self.qg_tokenizer = T5TokenizerFast.from_pretrained(QG_PRETRAINED)
+        self.qg_model = T5ForConditionalGeneration.from_pretrained(QG_PRETRAINED)
         self.qg_model.to(self.device)
         self.qg_model.eval()
 
-        self.qa_evaluator = QAEvaluator()
+        # TODO check what this does
+        #self.qa_evaluator = QAEvaluator()
 
     def generate(
             self,
@@ -58,34 +67,50 @@ class QuestionGenerator:
 
         # print("Generating questions...\n")
 
-        qg_inputs, qg_answers = self.generate_qg_inputs(article, answer_style)
-        generated_questions = self.generate_questions_from_inputs(qg_inputs)
+        dataset = QGProjectDataset(article, self.qg_tokenizer, self.answer_token, self.context_token,
+                                   self.max_seq_length, self.stride, self.truncation, self.padding,
+                                   self.return_overflowing_tokens, self.return_offsets_mapping)
+        #qg_inputs, qg_answers = self.generate_qg_inputs(article, answer_style)
+        dataloader = torch.utils.data.DataLoader(dataset, batch_size=8, shuffle=False, num_workers=2,
+                                                 collate_fn=dataset.filter_empty_paragraphs_collate_fn)
+
+        generated_questions = []
+        qg_answers = []
+        #for i, (batch_inputs, batch_answers) in tqdm(enumerate(dataloader), desc="Generating questions", total=len(dataloader)):
+        for i, batch_list in tqdm(enumerate(dataloader), desc="Generating questions", total=len(dataloader)):
+            for (batch_inputs, batch_answers) in batch_list:
+                outputs = self.qg_model.generate(input_ids=batch_inputs["input_ids"].to(self.device))
+                questions = self.qg_tokenizer.batch_decode(
+                    outputs,
+                    skip_special_tokens=True
+                )
+                generated_questions.extend(questions)
+                qg_answers.extend(batch_answers)
 
         message = "{} questions doesn't match {} answers".format(
             len(generated_questions), len(qg_answers)
         )
         assert len(generated_questions) == len(qg_answers), message
 
-        if use_evaluator:
-            # print("Evaluating QA pairs...\n")
-            encoded_qa_pairs = self.qa_evaluator.encode_qa_pairs(
-                generated_questions, qg_answers
-            )
-            scores = self.qa_evaluator.get_scores(encoded_qa_pairs)
-
-            if num_questions:
-                qa_list = self._get_ranked_qa_pairs(
-                    generated_questions, qg_answers, scores, num_questions
-                )
-            else:
-                qa_list = self._get_ranked_qa_pairs(
-                    generated_questions, qg_answers, scores
-                )
-
-        else:
-            # print("Skipping evaluation step.\n")
-            qa_list = self._get_all_qa_pairs(generated_questions, qg_answers)
-
+        #        if use_evaluator:
+        #            # print("Evaluating QA pairs...\n")
+        #            encoded_qa_pairs = self.qa_evaluator.encode_qa_pairs(
+        #                generated_questions, qg_answers
+        #            )
+        #            scores = self.qa_evaluator.get_scores(encoded_qa_pairs)
+        #
+        #            if num_questions:
+        #                qa_list = self._get_ranked_qa_pairs(
+        #                    generated_questions, qg_answers, scores, num_questions
+        #                )
+        #            else:
+        #                qa_list = self._get_ranked_qa_pairs(
+        #                    generated_questions, qg_answers, scores
+        #                )
+        #
+        #        else:
+        # print("Skipping evaluation step.\n")
+        qa_list = self._get_all_qa_pairs(generated_questions, qg_answers)
         return qa_list
 
     def generate_qg_inputs(self, text: str, answer_style: str) -> Tuple[List[str], List[str]]:
@@ -108,6 +133,7 @@ class QuestionGenerator:
         answers = []
 
         if answer_style == "sentences" or answer_style == "all":
+
             segments = self._split_into_segments(text)
 
             for segment in segments:
@@ -157,27 +183,6 @@ class QuestionGenerator:
 
         return list(set([s.strip(" ") for s in sentences]))
 
-    def _split_into_segments(self, text: str) -> List[str]:
-        """Splits a long text into segments short enough to be input into the transformer network.
-        Segments are used as context for question generation.
-        """
-        MAX_TOKENS = 490
-        paragraphs = text.split("\n")
-        tokenized_paragraphs = [
-            self.qg_tokenizer(p)["input_ids"] for p in paragraphs if len(p) > 0
-        ]
-        segments = []
-
-        while len(tokenized_paragraphs) > 0:
-            segment = []
-
-            while len(segment) < MAX_TOKENS and len(tokenized_paragraphs) > 0:
-                paragraph = tokenized_paragraphs.pop(0)
-                segment.extend(paragraph)
-            segments.append(segment)
-
-        return [self.qg_tokenizer.decode(s, skip_special_tokens=True) for s in segments]
-
     def _prepare_qg_inputs(
             self,
             sentences: List[str],
@@ -190,7 +195,7 @@ class QuestionGenerator:
         answers = []
 
         for sentence in sentences:
-            qg_input = f"{self.ANSWER_TOKEN} {sentence} {self.CONTEXT_TOKEN} {text}"
+            qg_input = f"{self.answer_token} {sentence} {self.context_token} {text}"
             inputs.append(qg_input)
             answers.append(sentence)
 
@@ -211,7 +216,7 @@ class QuestionGenerator:
             if entities:
 
                 for entity in entities:
-                    qg_input = f"{self.ANSWER_TOKEN} {entity} {self.CONTEXT_TOKEN} {sentence}"
+                    qg_input = f"{self.answer_token} {entity} {self.context_token} {sentence}"
                     answers = self._get_MC_answers(entity, docs)
                     inputs_from_text.append(qg_input)
                     answers_from_text.append(answers)
@@ -283,7 +288,7 @@ class QuestionGenerator:
         return self.qg_tokenizer(
             qg_input,
             padding='max_length',
-            max_length=self.SEQ_LENGTH,
+            max_length=self.max_seq_length,
             truncation=True,
             return_tensors="pt",
         ).to(self.device)
@@ -300,29 +305,21 @@ class QuestionGenerator:
                 "For more questions, please input a longer text.")
             )
 
-        qa_list = []
+        qa_list = [{"question": generated_questions[index].split("?")[0] + "?", "answer": qg_answers[index]} for index in scores[:num_questions]]
 
-        for i in range(num_questions):
-            index = scores[i]
-            qa = {
-                "question": generated_questions[index].split("?")[0] + "?",
-                "answer": qg_answers[index]
-            }
-            qa_list.append(qa)
+#        for i in range(num_questions):
+#            index = scores[i]
+#            qa = {
+#                "question": generated_questions[index].split("?")[0] + "?",
+#                "answer": qg_answers[index]
+#            }
+#            qa_list.append(qa)
 
         return qa_list
 
     def _get_all_qa_pairs(self, generated_questions: List[str], qg_answers: List[str]):
         """Formats question and answer pairs without ranking or filtering."""
-        qa_list = []
-
-        for question, answer in zip(generated_questions, qg_answers):
-            qa = {
-                "question": question.split("?")[0] + "?",
-                "answer": answer
-            }
-            qa_list.append(qa)
-
+        qa_list = [{"question": question.split("?")[0] + "?", "answer": answer} for question, answer in zip(generated_questions, qg_answers)]
         return qa_list
 
 
@@ -441,7 +438,7 @@ if __name__ == '__main__':
     qg = QuestionGenerator()
     qa_list = qg.generate(
         article,
-        num_questions=10,
+        num_questions=N,
         answer_style='sentences'
     )
     print_qa(qa_list, show_answers=False)
