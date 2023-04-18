@@ -1,7 +1,6 @@
 it is the cpu version for our image
 qaqg zhongyue/qaqg:cpu
 
-it is the gpu version for our image
 
 Team name: Life Answer
 Team members:

@@ -1,9 +1,11 @@
 # Ubuntu Linux as the base image
-FROM ubuntu:22.04
+FROM nvidia/cuda:12.0.0-base-ubuntu20.04
+CMD nvidia-smi
 
 # Set UTF-8 encoding
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
+
 
 # Install Python
 RUN apt-get -y update && \
@@ -21,8 +23,12 @@ RUN pip3 install -U spacy
 RUN python3 -m spacy download en_core_web_sm
 
 COPY requirements.txt requirements.txt
+#RUN pip3 install torch==1.9.0+cu120 -f https://download.pytorch.org/whl/cu120/torch_stable.html
+#RUN pip3 install torch==1.9.0+cu120 -f https://download.pytorch.org/whl/cu120/torch_stable.html
+RUN pip3 install torch torchvision torchaudio -f https://download.pytorch.org/whl/cu111/torch_stable.html
+
+
 RUN pip3 install -r requirements.txt
-#RUN pip3 install torch==1.13.1+rocm5.2 torchvision==0.14.1+rocm5.2 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/rocm5.2
 
 # Add the files into container, under QA folder, modify this based on your need
 RUN mkdir /QA
@@ -32,6 +38,7 @@ ADD Asking /QA/Asking
 ADD mydatasets /QA/mydatasets
 ADD mymodels /QA/mymodels
 ADD utils.py /QA/utils.py
+ADD gpu_test.py /QA/gpu_test.py
 RUN chmod a+x QA/ask
 RUN chmod a+x QA/answer
 RUN chmod a+x QA/Asking
