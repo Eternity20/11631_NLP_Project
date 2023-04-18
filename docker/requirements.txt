@@ -24,6 +24,8 @@ requests==2.28.2
 responses==0.18.0
 sentencepiece==0.1.97
 six==1.16.0
+-f https://download.pytorch.org/whl/torch
+torch==1.10.1+cu111
 tokenizers==0.13.2
 tqdm==4.65.0
 transformers==4.27.4
@@ -32,3 +34,4 @@ tzdata==2023.3
 urllib3==1.26.15
 xxhash==3.2.0
 yarl==1.8.2
+spacy==3.5.2
