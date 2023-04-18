@@ -46,7 +46,7 @@ class QAProjectModel:
 		self.padding = padding
 		self.return_overflowing_tokens = return_overflowing_tokens
 		self.return_offsets_mapping = return_offsets_mapping
-		self.stride = stridegit
+		self.stride = stride
 		self.n_best_size = n_best_size
 		self.max_answer_length = max_answer_length
 		self.batch_size = batch_size

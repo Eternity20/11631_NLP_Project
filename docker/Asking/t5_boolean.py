@@ -1,6 +1,3 @@
-import transformers
-transformers.logging.set_verbosity_error()
-transformers.logging.disable_progress_bar()
 import sentencepiece
 from transformers import T5ForConditionalGeneration,T5Tokenizer
 import torch
@@ -15,7 +12,7 @@ class YesNoQuestionGenerator:
     self.tokenizer = T5Tokenizer.from_pretrained('t5-base')
     self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     self.model.to(self.device)
-    self.encoding = self.tokenizer.encode_plus(self.text, return_tensors="pt")
+    self.encoding = self.tokenizer.encode_plus(self.text, truncation=True,max_length=512,return_tensors="pt")
     self.input_ids, self.attention_masks = self.encoding["input_ids"].to(self.device), self.encoding["attention_mask"].to(self.device)
     self.nquestion = nquestion
 

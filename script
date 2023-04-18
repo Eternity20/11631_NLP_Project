@@ -41,9 +41,9 @@ docker tag qaqg zhongyue/qaqg:cpu
 sudo ./test.sh zhongyue/qaqg:cpu
 sudo docker push zhongyue/qaqg:cpu
 
-docker tag qaqg zhongyue/qaqg:gpu
-sudo ./test.sh zhongyue/qaqg:gpu
-sudo docker push zhongyue/qaqg:gpu
+docker tag qaqg zhongyue/qaqg:gpu2
+sudo ./test.sh zhongyue/qaqg:gpu2
+sudo docker push zhongyue/qaqg:gpu2
 
 sudo apt install nvidia-cuda-toolkit
 
