@@ -6,6 +6,7 @@ import numpy as np
 #from utils import set_random_seed
 import transformers
 transformers.logging.set_verbosity_error()
+transformers.logging.disable_progress_bar()
 from transformers import (
 	RobertaTokenizerFast,
 	RobertaTokenizer,
