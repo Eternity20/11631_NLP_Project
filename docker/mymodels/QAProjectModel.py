@@ -4,7 +4,6 @@ import torch
 import collections
 import numpy as np
 #from utils import set_random_seed
-from tqdm import tqdm
 from transformers import (
 	RobertaTokenizerFast,
 	RobertaTokenizer,
@@ -59,7 +58,7 @@ class QAProjectModel:
 		self.model.eval()
 		start_logits = []
 		end_logits = []
-		for step, batch in enumerate(tqdm(data_loader, desc="Inference Iteration")):
+		for step, batch in enumerate(data_loader):
 			with torch.no_grad():
 				model_kwargs = {
 					'input_ids': batch['input_ids'].to(self.device, dtype=torch.long),
@@ -86,7 +85,7 @@ class QAProjectModel:
 
 		# Decode the answers for each datapoint
 		predictions = []
-		for k, question in enumerate(tqdm(questions)):
+		for k, question in enumerate(questions):
 			answers = []
 			data_id = k
 			context = wiki_doc_str
