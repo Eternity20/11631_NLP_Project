@@ -4,6 +4,8 @@ import numpy as np
 import random
 import re
 import torch
+import transformers
+transformers.logging.set_verbosity_error()
 from transformers import (
     AutoTokenizer,
     AutoModelForSeq2SeqLM,

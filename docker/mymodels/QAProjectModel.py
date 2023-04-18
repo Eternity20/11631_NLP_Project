@@ -4,11 +4,14 @@ import torch
 import collections
 import numpy as np
 #from utils import set_random_seed
+import transformers
+transformers.logging.set_verbosity_error()
 from transformers import (
 	RobertaTokenizerFast,
 	RobertaTokenizer,
 	RobertaForQuestionAnswering
 )
+
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 def set_random_seed(seed: int = 0):

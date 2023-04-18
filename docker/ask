@@ -8,7 +8,6 @@ import logging
 from Asking.t5_small import T5SmallQuestionGenerator
 from Asking.t5_boolean import YesNoQuestionGenerator
 
-logging.disable(level=logging.CRITICAL)
 from Asking.advance_qg import QuestionGenerator
 from Asking.advance_qg import print_qa
 

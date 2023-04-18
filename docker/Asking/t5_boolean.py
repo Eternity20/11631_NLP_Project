@@ -1,3 +1,5 @@
+import transformers
+transformers.logging.set_verbosity_error()
 import sentencepiece
 from transformers import T5ForConditionalGeneration,T5Tokenizer
 import torch
