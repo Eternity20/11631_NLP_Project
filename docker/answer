@@ -9,7 +9,7 @@ from mymodels.QAProjectModel import QAProjectModel
 from utils import set_device
 import logging
 
-logging.basicConfig(level=logging.CRITICAL)
+logging.disable(level=logging.WARNING)
 
 # QA_MODEL = 'deepset/tinyroberta-squad2'
 # QA_MODEL = 'deepset/roberta-base-squad2-distilled'
