@@ -1,5 +1,7 @@
 #!/usr/bin/python3 -W ignore::DeprecationWarning
 # -*- coding:utf8 -*-
+import logging
+logging.disable(level=logging.CRITICAL)
 
 import sys
 from typing import List, Tuple, Any
@@ -7,9 +9,6 @@ from torch.utils.data import DataLoader
 from mydatasets.QAProjectDataset import QAProjectDataset
 from mymodels.QAProjectModel import QAProjectModel
 from utils import set_device
-import logging
-
-logging.basicConfig(level=logging.CRITICAL)
 
 # QA_MODEL = 'deepset/tinyroberta-squad2'
 # QA_MODEL = 'deepset/roberta-base-squad2-distilled'

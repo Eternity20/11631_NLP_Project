@@ -1,5 +1,4 @@
 import torch
-from tqdm import tqdm
 from torch.utils.data import (
 	DataLoader,
 	Dataset
@@ -24,7 +23,7 @@ class QADataset(Dataset):
 		)
 
 		example_ids = []
-		for i, sample_mapping in enumerate(tqdm(self.tokenized_data["overflow_to_sample_mapping"])):
+		for i, sample_mapping in enumerate(self.tokenized_data["overflow_to_sample_mapping"]):
 			example_ids.append(self.data["id"][sample_mapping])
 
 			sequence_ids = self.tokenized_data.sequence_ids(i)

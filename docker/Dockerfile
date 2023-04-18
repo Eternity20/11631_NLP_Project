@@ -18,17 +18,18 @@ RUN apt-get -y install python3-pip python3-dev
 RUN pip3 install --upgrade pip
 #RUN pip3 install spacy
 #RUN python3 -m spacy download en_core_web_sm
-RUN pip3 install -U pip setuptools wheel
-RUN pip3 install -U spacy
-RUN python3 -m spacy download en_core_web_sm
+
+#RUN pip3 install -U pip setuptools wheel
+#RUN pip3 install -U spacy
 
 COPY requirements.txt requirements.txt
 #RUN pip3 install torch==1.9.0+cu120 -f https://download.pytorch.org/whl/cu120/torch_stable.html
 #RUN pip3 install torch==1.9.0+cu120 -f https://download.pytorch.org/whl/cu120/torch_stable.html
-RUN pip3 install torch torchvision torchaudio -f https://download.pytorch.org/whl/cu111/torch_stable.html
+#RUN pip3 install torch torchvision torchaudio -f https://download.pytorch.org/whl/cu111/torch_stable.html
 
 
 RUN pip3 install -r requirements.txt
+RUN python3 -m spacy download en_core_web_sm
 
 # Add the files into container, under QA folder, modify this based on your need
 RUN mkdir /QA

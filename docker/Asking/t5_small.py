@@ -5,6 +5,9 @@ import sys
 import logging
 import torch
 from torch.utils.data import DataLoader
+import transformers
+transformers.logging.set_verbosity_error()
+transformers.logging.disable_progress_bar()
 from transformers import (
     T5ForConditionalGeneration, T5Tokenizer
 )
