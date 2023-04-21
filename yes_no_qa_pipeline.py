@@ -161,7 +161,7 @@ if __name__ == '__main__':
     train_features = (input_ids_train, attention_masks_train, answers_train)
     dev_features = (input_ids_dev, attention_masks_dev, answers_dev)
 
-    batch_size = 64
+    batch_size = 8
 
     train_features_tensors = [torch.tensor(feature, dtype=torch.long) for feature in train_features]
     dev_features_tensors = [torch.tensor(feature, dtype=torch.long) for feature in dev_features]
@@ -177,7 +177,7 @@ if __name__ == '__main__':
 
     #training
     epochs = 10
-    grad_acc_steps = 2
+    grad_acc_steps = 8
     train_loss_values = []
     dev_acc_values = []
     model = train(train_dataloader, dev_dataloader, model, optimizer, device, grad_acc_steps, epochs)
