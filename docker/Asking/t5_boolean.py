@@ -13,7 +13,7 @@ class YesNoQuestionGenerator:
     #self.model = T5ForConditionalGeneration.from_pretrained('ramsrigouthamg/t5_boolean_questions')
     #self.tokenizer = T5TokenizerFast.from_pretrained('t5-base')
     self.model = T5ForConditionalGeneration.from_pretrained("pretrained/qg_model_boolean",local_files_only = True)
-    self.tokenizer = T5Tokenizer.from_pretrained('pretrained/qg_tok_boolean',local_files_only = True)
+    self.tokenizer = T5TokenizerFast.from_pretrained('pretrained/qg_tok_boolean',local_files_only = True)
     self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     self.model.to(self.device)
     self.encoding = self.tokenizer.encode_plus(self.text, max_length=512, return_tensors="pt", return_overflowing_tokens=True, return_attention_mask=True, pad_to_max_length=True, truncation=True)
@@ -28,6 +28,7 @@ class YesNoQuestionGenerator:
                                          top_k=40,
                                          top_p=0.80,
                                          num_return_sequences=1,
+                                         # num_return_sequences=self.nquestion,
                                          no_repeat_ngram_size=2,
                                          early_stopping=True
                                         )
