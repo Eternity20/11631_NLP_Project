@@ -42,6 +42,5 @@ if __name__ == '__main__':
         if N_A > 0:
             for i in range(len(qa_list)):
                 print(f"{qa_list[i]['question']}", file=f)
-            #print_qa(qa_list, show_answers=False)
 
     sys.exit(0)
