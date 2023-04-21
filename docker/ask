@@ -1,8 +1,9 @@
 #!/usr/bin/python3 -W ignore::DeprecationWarning
 # -*- coding:utf8 -*-
+import warnings
+warnings.filterwarnings('ignore')
 import logging
 logging.disable(level=logging.CRITICAL)
-
 import sys
 from Asking.t5_boolean import YesNoQuestionGenerator
 from Asking.advance_qg import QuestionGenerator

@@ -1,11 +1,11 @@
+import warnings
+warnings.filterwarnings('ignore')
 import transformers
 transformers.logging.set_verbosity_error()
 transformers.logging.disable_progress_bar()
 from transformers import T5ForConditionalGeneration,T5Tokenizer,T5TokenizerFast
 import torch
 import sys
-import warnings
-warnings.filterwarnings('ignore')
 class YesNoQuestionGenerator:
   def __init__(self,passage, nquestion):
     self.truefalse = "yes"

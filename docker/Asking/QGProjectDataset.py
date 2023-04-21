@@ -1,3 +1,5 @@
+import warnings
+warnings.filterwarnings('ignore')
 import re
 from typing import List
 from torch.utils.data import (

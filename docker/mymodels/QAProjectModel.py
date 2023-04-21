@@ -1,3 +1,6 @@
+import warnings
+warnings.filterwarnings('ignore')
+
 import os
 import random
 import torch

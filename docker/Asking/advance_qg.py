@@ -1,3 +1,5 @@
+import warnings
+warnings.filterwarnings('ignore')
 import sys
 import numpy as np
 import re
@@ -12,7 +14,7 @@ from transformers import (
 from typing import Any, List, Mapping, Tuple
 from .QAEvaluator import QAEvaluator
 from .QGProjectDataset import QGProjectDataset
-from tqdm import tqdm
+#from tqdm import tqdm
 
 
 class QuestionGenerator:
@@ -87,7 +89,7 @@ class QuestionGenerator:
         assert len(generated_questions) == len(qg_answers), message
 
         if use_evaluator:
-            print("Evaluating QA pairs...\n")
+            #print("Evaluating QA pairs...\n")
             encoded_qa_pairs = self.qa_evaluator.encode_qa_pairs(generated_questions, qg_answers)
             scores = self.qa_evaluator.get_scores(encoded_qa_pairs)
 
@@ -96,7 +98,7 @@ class QuestionGenerator:
             else:
                 qa_list = self._get_ranked_qa_pairs(generated_questions, qg_answers, scores)
         else:
-            print("Skipping evaluation step.\n")
+            #print("Skipping evaluation step.\n")
             qa_list = self._get_all_qa_pairs(generated_questions, qg_answers)
         return qa_list
 
