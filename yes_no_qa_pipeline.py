@@ -33,7 +33,7 @@ def train_loop(train_dataloader, model, optimizer, device, grad_acc_steps):
     model.train()
     model.zero_grad()
 
-    for step, batch in enumerate(train_dataloader):
+    for step, batch in tqdm(enumerate(train_dataloader), desc='Train Steps', total=len(train_dataloader)):
         input_ids = batch[0].to(device)
         attention_masks = batch[1].to(device)
         labels = batch[2].to(device)
@@ -72,7 +72,7 @@ def train(train_dataloader, dev_dataloader, model, optimizer, device, grad_acc_s
 
 def eval(model, device, dev_dataloader):
   epoch_dev_accuracy = 0
-  for batch in dev_dataloader:
+  for step, batch in tqdm(enumerate(dev_dataloader), desc='Train Steps', total=len(train_dataloader)):
     input_ids = batch[0].to(device)
     attention_masks = batch[1].to(device)
     labels = batch[2]
