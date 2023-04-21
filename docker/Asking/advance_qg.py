@@ -44,6 +44,9 @@ class QuestionGenerator:
 
         self.qg_tokenizer = T5TokenizerFast.from_pretrained(QG_PRETRAINED)
         self.qg_model = T5ForConditionalGeneration.from_pretrained(QG_PRETRAINED)
+        #self.qg_tokenizer = AutoTokenizer.from_pretrained(
+        #    "pretrained/qg_tok_ad", use_fast=False)
+        #self.qg_model = AutoModelForSeq2SeqLM.from_pretrained('pretrained/qg_model_ad')
         self.qg_model.to(self.device)
         self.qg_model.eval()
 

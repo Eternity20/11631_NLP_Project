@@ -33,6 +33,7 @@ RUN python3 -m spacy download en_core_web_sm
 
 # Add the files into container, under QA folder, modify this based on your need
 RUN mkdir /QA
+ADD pretrained /QA/pretrained
 ADD ask /QA
 ADD answer /QA
 ADD Asking /QA/Asking
