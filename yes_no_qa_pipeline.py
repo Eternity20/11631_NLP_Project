@@ -61,7 +61,7 @@ def train(train_dataloader, dev_dataloader, model, optimizer, device, grad_acc_s
       # Training
       model, train_loss = train_loop(train_dataloader, model, optimizer, device, grad_acc_steps)
       model.eval()
-      val_loss = eval(model, dev_dataloader, device)
+      val_loss = eval_loop(model, device, dev_dataloader)
       print(f'Epoch {epoch + 1}, Train Loss: {train_loss:.4f}, Validation Loss: {val_loss:.4f}')
       if val_loss < best_val_loss:
           best_val_loss = val_loss
@@ -70,9 +70,9 @@ def train(train_dataloader, dev_dataloader, model, optimizer, device, grad_acc_s
     return model
 
 
-def eval(model, device, dev_dataloader):
+def eval_loop(model, device, dev_dataloader):
   epoch_dev_accuracy = 0
-  for step, batch in tqdm(enumerate(dev_dataloader), desc='Train Steps', total=len(train_dataloader)):
+  for step, batch in tqdm(enumerate(dev_dataloader), desc='Train Steps', total=len(dev_dataloader)):
     input_ids = batch[0].to(device)
     attention_masks = batch[1].to(device)
     labels = batch[2]
