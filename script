@@ -123,4 +123,5 @@ sudo docker rm $(sudo docker ps -a -q)
 sudo docker rmi $(sudo docker images -q)
 sudo docker system prune --all --force
 sudo docker system prune --all --force --volumes
-#----------docker pull images---------------------------------------------------------
+#----------docker run---------------------------------------------------------
+docker run -it qaqg /bin/bash
