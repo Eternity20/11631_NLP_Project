@@ -40,6 +40,8 @@ if __name__ == '__main__':
             for question in yesNo_questions:
                 print(f'{question}', file=f)
         if N_A > 0:
-            print_qa(qa_list, show_answers=False)
+            for i in range(len(qa_list)):
+                print(f"{qa_list[i]['question']}", file=f)
+            #print_qa(qa_list, show_answers=False)
 
     sys.exit(0)
