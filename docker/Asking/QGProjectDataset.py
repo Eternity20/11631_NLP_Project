@@ -1,12 +1,8 @@
 import re
-
-import torch
 from typing import List
 from torch.utils.data import (
 	Dataset
 )
-from torch.utils.data._utils.collate import default_collate
-from transformers import default_data_collator
 
 
 class QGProjectDataset(Dataset):
@@ -52,7 +48,7 @@ class QGProjectDataset(Dataset):
 		if paragraph_sentences:
 			candidate_inputs = [f"{self.answer_token} {sentence} {self.context_token} {paragraph}" for sentence in paragraph_sentences]
 
-			print(f"index: {index}")
+			#print(f"index: {index}")
 			enconded_candidate_inputs = self.tokenizer.batch_encode_plus(
 				candidate_inputs, padding=self.padding, max_length=self.max_length,
 	            truncation=self.truncation, return_tensors="pt",)
