@@ -66,13 +66,14 @@ def train(train_dataloader, dev_dataloader, model, optimizer, device, grad_acc_s
       if val_loss < best_val_loss:
           best_val_loss = val_loss
           torch.save(model.state_dict(), 'best_model.pth')
+          model.save_pretrained("best_yn_qa_roberta_base", from_pt=True)
       model.train()
     return model
 
 
 def eval_loop(model, device, dev_dataloader):
   epoch_dev_accuracy = 0
-  for step, batch in tqdm(enumerate(dev_dataloader), desc='Train Steps', total=len(dev_dataloader)):
+  for step, batch in tqdm(enumerate(dev_dataloader), desc='Eval Steps', total=len(dev_dataloader)):
     input_ids = batch[0].to(device)
     attention_masks = batch[1].to(device)
     labels = batch[2]
