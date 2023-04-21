@@ -58,11 +58,6 @@ class QuestionGenerator:
             use_evaluator: bool = True,
             num_questions: int = None,
     ) -> List:
-        """Takes an article and generates a set of question and answer pairs. If use_evaluator
-        is True then QA pairs will be ranked and filtered based on their quality. answer_style
-        should selected from ["all", "sentences", "multiple_choice"].
-        """
-
         # print("Generating questions...\n")
 
         dataset = QGProjectDataset(article, self.qg_tokenizer, self.answer_token, self.context_token,
