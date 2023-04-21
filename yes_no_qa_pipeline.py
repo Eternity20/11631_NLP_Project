@@ -154,7 +154,7 @@ if __name__ == '__main__':
     answers_dev = dev_data_df.answer.values.astype(int)
 
     # Encoding data
-    max_seq_length = 512
+    max_seq_length = 256
     input_ids_train, attention_masks_train = encode_data(tokenizer, questions_train, passages_train, max_seq_length)
     input_ids_dev, attention_masks_dev = encode_data(tokenizer, questions_dev, passages_dev, max_seq_length)
 
@@ -176,7 +176,7 @@ if __name__ == '__main__':
     dev_dataloader = DataLoader(dev_dataset, sampler=dev_sampler, batch_size=batch_size, num_workers=3)
 
     #training
-    epochs = 10
+    epochs = 1
     grad_acc_steps = 8
     train_loss_values = []
     dev_acc_values = []
