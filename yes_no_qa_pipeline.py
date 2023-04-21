@@ -63,10 +63,10 @@ def train(train_dataloader, dev_dataloader, model, optimizer, device, grad_acc_s
       model.eval()
       val_loss = eval_loop(model, device, dev_dataloader)
       print(f'Epoch {epoch + 1}, Train Loss: {train_loss:.4f}, Validation Loss: {val_loss:.4f}')
-      if val_loss < best_val_loss:
+      if val_loss <= best_val_loss:
           best_val_loss = val_loss
           torch.save(model.state_dict(), 'best_model.pth')
-          model.save_pretrained("best_yn_qa_roberta_base", from_pt=True)
+          model.save_pretrained("best_yn_qa_roberta_base_v2", from_pt=True)
       model.train()
     return model
 
