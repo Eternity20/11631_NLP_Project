@@ -172,8 +172,8 @@ if __name__ == '__main__':
     train_sampler = RandomSampler(train_dataset)
     dev_sampler = SequentialSampler(dev_dataset)
 
-    train_dataloader = DataLoader(train_dataset, sampler=train_sampler, batch_size=batch_size)
-    dev_dataloader = DataLoader(dev_dataset, sampler=dev_sampler, batch_size=batch_size)
+    train_dataloader = DataLoader(train_dataset, sampler=train_sampler, batch_size=batch_size, num_workers=3)
+    dev_dataloader = DataLoader(dev_dataset, sampler=dev_sampler, batch_size=batch_size, num_workers=3)
 
     #training
     epochs = 10
