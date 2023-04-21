@@ -125,3 +125,5 @@ sudo docker system prune --all --force
 sudo docker system prune --all --force --volumes
 #----------docker run---------------------------------------------------------
 docker run -it qaqg /bin/bash
+pip3 install torch torchvision torchaudio
+pip3 install sentencepiece
