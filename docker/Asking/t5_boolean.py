@@ -8,8 +8,8 @@ class YesNoQuestionGenerator:
   def __init__(self,passage,nquestion):
     self.truefalse = "yes"
     self.text ="truefalse: %s passage: %s </s>" % (passage, self.truefalse)
-    self.model = T5ForConditionalGeneration.from_pretrained("pretrained/qg_model_boolean")
-    self.tokenizer = T5Tokenizer.from_pretrained('pretrained/qg_tok_boolean')
+    self.model = T5ForConditionalGeneration.from_pretrained("pretrained/qg_model_boolean",local_files_only = True)
+    self.tokenizer = T5Tokenizer.from_pretrained('pretrained/qg_tok_boolean',local_files_only = True)
     self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     self.model.to(self.device)
     self.encoding = self.tokenizer.encode_plus(self.text, truncation=True,max_length=512,return_tensors="pt")

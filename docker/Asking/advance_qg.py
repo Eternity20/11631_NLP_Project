@@ -37,8 +37,8 @@ class QuestionGenerator:
             "cuda" if torch.cuda.is_available() else "cpu")
 
         self.qg_tokenizer = AutoTokenizer.from_pretrained(
-            QG_PRETRAINED, use_fast=False)
-        self.qg_model = AutoModelForSeq2SeqLM.from_pretrained(QG_PRETRAINED)
+            "pretrained/qg_tok_ad", use_fast=False)
+        self.qg_model = AutoModelForSeq2SeqLM.from_pretrained('pretrained/qg_model_ad')
         self.qg_model.to(self.device)
         self.qg_model.eval()
 
@@ -340,10 +340,8 @@ class QAEvaluator:
         self.device = torch.device(
             "cuda" if torch.cuda.is_available() else "cpu")
 
-        self.qae_tokenizer = AutoTokenizer.from_pretrained(QAE_PRETRAINED)
-        self.qae_model = AutoModelForSequenceClassification.from_pretrained(
-            QAE_PRETRAINED
-        )
+        self.qae_tokenizer = AutoTokenizer.from_pretrained("qae_tok_ad",local_files_only = True)
+        self.qae_model = AutoModelForSequenceClassification.from_pretrained("qae_model_ad",local_files_only = True)
         self.qae_model.to(self.device)
         self.qae_model.eval()
 
