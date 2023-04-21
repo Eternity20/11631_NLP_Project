@@ -14,8 +14,7 @@ from typing import Any, List, Mapping, Tuple
 
 class QuestionGenerator:
     """A transformer-based NLP system for generating reading comprehension-style questions from
-    texts. It can generate full sentence questions, multiple choice questions, or a mix of the
-    two styles.
+    texts. It can generate full sentence questions.
 
     To filter out low quality questions, questions are assigned a score and ranked once they have
     been generated. Only the top k questions will be returned. This behaviour can be turned off
@@ -49,7 +48,7 @@ class QuestionGenerator:
     ) -> List:
         """Takes an article and generates a set of question and answer pairs. If use_evaluator
         is True then QA pairs will be ranked and filtered based on their quality. answer_style
-        should selected from ["all", "sentences", "multiple_choice"].
+        should selected from ["sentences"].
         """
 
         #print("Generating questions...\n")
@@ -91,7 +90,7 @@ class QuestionGenerator:
         the context.
         """
 
-        VALID_ANSWER_STYLES = ["all", "sentences", "multiple_choice"]
+        VALID_ANSWER_STYLES = ["sentences"]
 
         if answer_style not in VALID_ANSWER_STYLES:
             raise ValueError(
@@ -103,21 +102,12 @@ class QuestionGenerator:
         inputs = []
         answers = []
 
-        if answer_style == "sentences" or answer_style == "all":
-            segments = self._split_into_segments(text)
+        segments = self._split_into_segments(text)
 
-            for segment in segments:
-                sentences = self._split_text(segment)
-                prepped_inputs, prepped_answers = self._prepare_qg_inputs(
-                    sentences, segment
-                )
-                inputs.extend(prepped_inputs)
-                answers.extend(prepped_answers)
-
-        if answer_style == "multiple_choice" or answer_style == "all":
-            sentences = self._split_text(text)
-            prepped_inputs, prepped_answers = self._prepare_qg_inputs_MC(
-                sentences
+        for segment in segments:
+            sentences = self._split_text(segment)
+            prepped_inputs, prepped_answers = self._prepare_qg_inputs(
+                sentences, segment
             )
             inputs.extend(prepped_inputs)
             answers.extend(prepped_answers)
@@ -191,73 +181,6 @@ class QuestionGenerator:
             answers.append(sentence)
 
         return inputs, answers
-
-    def _prepare_qg_inputs_MC(self, sentences: List[str]) -> Tuple[List[str], List[str]]:
-        """Performs NER on the text, and uses extracted entities are candidate answers for multiple-choice
-        questions. Sentences are used as context, and entities as answers. Returns a tuple of (model inputs, answers). 
-        Model inputs are "answer_token <answer text> context_token <context text>"
-        """
-        spacy_nlp = en_core_web_sm.load()
-        docs = list(spacy_nlp.pipe(sentences, disable=["parser"]))
-        inputs_from_text = []
-        answers_from_text = []
-
-        for doc, sentence in zip(docs, sentences):
-            entities = doc.ents
-            if entities:
-
-                for entity in entities:
-                    qg_input = f"{self.ANSWER_TOKEN} {entity} {self.CONTEXT_TOKEN} {sentence}"
-                    answers = self._get_MC_answers(entity, docs)
-                    inputs_from_text.append(qg_input)
-                    answers_from_text.append(answers)
-
-        return inputs_from_text, answers_from_text
-
-    def _get_MC_answers(self, correct_answer: Any, docs: Any) -> List[Mapping[str, Any]]:
-        """Finds a set of alternative answers for a multiple-choice question. Will attempt to find
-        alternatives of the same entity type as correct_answer if possible.
-        """
-        entities = []
-
-        for doc in docs:
-            entities.extend([{"text": e.text, "label_": e.label_}
-                            for e in doc.ents])
-
-        # remove duplicate elements
-        entities_json = [json.dumps(kv) for kv in entities]
-        pool = set(entities_json)
-        num_choices = (
-            min(4, len(pool)) - 1
-        )  # -1 because we already have the correct answer
-
-        # add the correct answer
-        final_choices = []
-        correct_label = correct_answer.label_
-        final_choices.append({"answer": correct_answer.text, "correct": True})
-        pool.remove(
-            json.dumps({"text": correct_answer.text,
-                       "label_": correct_answer.label_})
-        )
-
-        # find answers with the same NER label
-        matches = [e for e in pool if correct_label in e]
-
-        # if we don't have enough then add some other random answers
-        if len(matches) < num_choices:
-            choices = matches
-            pool = pool.difference(set(choices))
-            choices.extend(random.sample(pool, num_choices - len(choices)))
-        else:
-            choices = random.sample(matches, num_choices)
-
-        choices = [json.loads(s) for s in choices]
-
-        for choice in choices:
-            final_choices.append({"answer": choice["text"], "correct": False})
-
-        random.shuffle(final_choices)
-        return final_choices
 
     @torch.no_grad()
     def _generate_question(self, qg_input: str) -> str:
