@@ -8,9 +8,7 @@ from typing import List
 from transformers import BertTokenizerFast, BertForSequenceClassification
 
 class QAEvaluator:
-    """Wrapper for a transformer model which evaluates the quality of question-answer pairs.
-    Given a QA pair, the model will generate a score. Scores can be used to rank and filter
-    QA pairs.
+    """Generate score for a QA pair that used to rank and filter.
     """
 
     def __init__(self) -> None:
@@ -29,7 +27,9 @@ class QAEvaluator:
         self.qae_model.eval()
 
     def encode_qa_pairs(self, questions: List[str], answers: List[str]) -> List[torch.tensor]:
-        """Takes a list of questions and a list of answers and encodes them as a list of tensors."""
+        """
+        Input: questions and answers 
+        Output: encoded tensors."""
         encoded_pairs = []
 
         for question, answer in zip(questions, answers):
@@ -39,7 +39,7 @@ class QAEvaluator:
         return encoded_pairs
 
     def get_scores(self, encoded_qa_pairs: List[torch.tensor]) -> List[float]:
-        """Generates scores for a list of encoded QA pairs."""
+        """Generates scores for the encoded QA pairs."""
         scores = {}
 
         for i in range(len(encoded_qa_pairs)):
@@ -50,8 +50,9 @@ class QAEvaluator:
         ]
 
     def _encode_qa(self, question: str, answer: str) -> torch.tensor:
-        """Concatenates a question and answer, and then tokenizes them. Returns a tensor of
-        input ids corresponding to indices in the vocab.
+        """
+        Input: question and answer
+        Return: a tensor of input ids
         """
         if type(answer) is list:
             for a in answer:
@@ -71,6 +72,8 @@ class QAEvaluator:
 
     @torch.no_grad()
     def _evaluate_qa(self, encoded_qa_pair: torch.tensor) -> float:
-        """Takes an encoded QA pair and returns a score."""
+        """
+        Input: encoded QA pair 
+        Return: score."""
         output = self.qae_model(**encoded_qa_pair)
         return output[0][0][1]
