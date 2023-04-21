@@ -52,7 +52,7 @@ def train_loop(train_dataloader, model, optimizer, device, grad_acc_steps):
 
     epoch_train_loss = epoch_train_loss / len(train_dataloader)
     print(f'Training Loss: {epoch_train_loss:.4f}')
-    return model
+    return model, epoch_train_loss
     #train_loss_values.append(epoch_train_loss)
 
 def train(train_dataloader, dev_dataloader, model, optimizer, device, grad_acc_steps, epochs):
