@@ -18,13 +18,12 @@ from .QGProjectDataset import QGProjectDataset
 
 
 class QuestionGenerator:
-    """A transformer-based NLP system for generating reading comprehension-style questions from
-    texts. It can generate full sentence questions, multiple choice questions, or a mix of the
-    two styles.
+    """A T5 transformer-based system for generating wh questions from
+    texts.
 
-    To filter out low quality questions, questions are assigned a score and ranked once they have
-    been generated. Only the top k questions will be returned. This behaviour can be turned off
-    by setting use_evaluator=False.
+    We calculate score of each questions and ranked once they have
+    been generated to filter out low quality questions. Only the top k questions will be returned. 
+    Turned off by setting use_evaluator=False.
     """
 
     def __init__(self) -> None:
@@ -58,24 +57,18 @@ class QuestionGenerator:
             use_evaluator: bool = True,
             num_questions: int = None,
     ) -> List:
-        """Takes an article and generates a set of question and answer pairs. If use_evaluator
-        is True then QA pairs will be ranked and filtered based on their quality. answer_style
-        should selected from ["all", "sentences", "multiple_choice"].
+        """Generates question and answer pairs. 
+        use_evaluator: True then QA pairs will be ranked and filtered based on their quality.
         """
-
-        # print("Generating questions...\n")
 
         dataset = QGProjectDataset(article, self.qg_tokenizer, self.answer_token, self.context_token,
                                    self.max_seq_length, self.stride, self.truncation, self.padding,
                                    self.return_overflowing_tokens, self.return_offsets_mapping)
-        #qg_inputs, qg_answers = self.generate_qg_inputs(article, answer_style)
         dataloader = torch.utils.data.DataLoader(dataset, batch_size=8, shuffle=False, num_workers=2,
                                                  collate_fn=dataset.filter_empty_paragraphs_collate_fn)
 
         generated_questions = []
         qg_answers = []
-        #for i, (batch_inputs, batch_answers) in tqdm(enumerate(dataloader), desc="Generating questions", total=len(dataloader)):
-        #for i, batch_list in tqdm(enumerate(dataloader), desc="Generating questions", total=len(dataloader)):
         for i, batch_list in enumerate(dataloader):
             for (batch_inputs, batch_answers) in batch_list:
                 outputs = self.qg_model.generate(input_ids=batch_inputs["input_ids"].to(self.device))
@@ -92,7 +85,6 @@ class QuestionGenerator:
         assert len(generated_questions) == len(qg_answers), message
 
         if use_evaluator:
-            #print("Evaluating QA pairs...\n")
             encoded_qa_pairs = self.qa_evaluator.encode_qa_pairs(generated_questions, qg_answers)
             scores = self.qa_evaluator.get_scores(encoded_qa_pairs)
 
@@ -101,13 +93,12 @@ class QuestionGenerator:
             else:
                 qa_list = self._get_ranked_qa_pairs(generated_questions, qg_answers, scores)
         else:
-            #print("Skipping evaluation step.\n")
             qa_list = self._get_all_qa_pairs(generated_questions, qg_answers)
         return qa_list
 
     def generate_qg_inputs(self, text: str) -> Tuple[List[str], List[str]]:
-        """Given a text, returns a list of model inputs and a list of corresponding answers.
-        Model inputs take the form "answer_token <answer text> context_token <context text>" where
+        """Generate model inputs and corresponding answers.
+        Model inputs: "answer_token <answer text> context_token <context text>" where
         the answer is a string extracted from the text, and the context is the wider text surrounding
         the context.
         """
@@ -127,9 +118,9 @@ class QuestionGenerator:
         return inputs, answers
 
     def generate_questions_from_inputs(self, qg_inputs: List) -> List[str]:
-        """Given a list of concatenated answers and contexts, with the form:
-        "answer_token <answer text> context_token <context text>", generates a list of
-        questions.
+        """
+        Input: concatenated answers and contexts, with the form "answer_token <answer text> context_token <context text>", 
+        Return: questions.
         """
         generated_questions = []
 
@@ -140,7 +131,7 @@ class QuestionGenerator:
         return generated_questions
 
     def _split_text(self, text: str) -> List[str]:
-        """Splits the text into sentences, and attempts to split or truncate long sentences."""
+        """Splits text."""
         MAX_SENTENCE_LEN = 128
         sentences = re.findall(".*?[.!\?]", text)
         cut_sentences = []
@@ -160,8 +151,9 @@ class QuestionGenerator:
             sentences: List[str],
             text: str
     ) -> Tuple[List[str], List[str]]:
-        """Uses sentences as answers and the text as context. Returns a tuple of (model inputs, answers).
-        Model inputs are "answer_token <answer text> context_token <context text>"
+        """
+        Input: sentences as answers and the text as context. 
+        Return: a tuple of (model inputs, answers).
         """
         inputs = []
         answers = []
@@ -175,8 +167,9 @@ class QuestionGenerator:
 
     @torch.no_grad()
     def _generate_question(self, qg_input: str) -> str:
-        """Takes qg_input which is the concatenated answer and context, and uses it to generate
-        a question sentence. The generated question is decoded and then returned.
+        """
+        Input: qg_input 
+        Return: a question sentence
         """
         encoded_input = self._encode_qg_input(qg_input)
         output = self.qg_model.generate(input_ids=encoded_input["input_ids"])
@@ -187,8 +180,9 @@ class QuestionGenerator:
         return question
 
     def _encode_qg_input(self, qg_input: str) -> torch.tensor:
-        """Tokenizes a string and returns a tensor of input ids corresponding to indices of tokens in
-        the vocab.
+        """
+        Input: a string 
+        Return: a tensor of input ids
         """
         return self.qg_tokenizer(
             qg_input,
@@ -206,30 +200,22 @@ class QuestionGenerator:
         if num_questions > len(scores):
             num_questions = len(scores)
             print((
-                f"\nWas only able to generate {num_questions} questions.",
+                f"\nOnly able to generate {num_questions} questions.",
                 "For more questions, please input a longer text.")
             )
 
         qa_list = [{"question": generated_questions[index].split("?")[0] + "?", "answer": qg_answers[index]} for index in scores[:num_questions]]
 
-#        for i in range(num_questions):
-#            index = scores[i]
-#            qa = {
-#                "question": generated_questions[index].split("?")[0] + "?",
-#                "answer": qg_answers[index]
-#            }
-#            qa_list.append(qa)
 
         return qa_list
 
     def _get_all_qa_pairs(self, generated_questions: List[str], qg_answers: List[str]):
-        """Formats question and answer pairs without ranking or filtering."""
         qa_list = [{"question": question.split("?")[0] + "?", "answer": answer} for question, answer in zip(generated_questions, qg_answers)]
         return qa_list
 
 
 def print_qa(qa_list: List[Mapping[str, str]], show_answers: bool = True) -> None:
-    """Formats and prints a list of generated questions and answers."""
+    """Prints generated questions and answers if show_answers = True."""
 
     for i in range(len(qa_list)):
         # wider space for 2 digit q nums
