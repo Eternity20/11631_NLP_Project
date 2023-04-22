@@ -1,9 +1,9 @@
-from transformers import AutoModelForSequenceClassification, AutoTokenizer
+from transformers import RobertaTokenizerFast, RobertaForQuestionAnswering
 # Instantiate a model and tokenizer
 model_name = 'deepset/roberta-large-squad2'
-model = AutoModelForSequenceClassification.from_pretrained(model_name)
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = RobertaForQuestionAnswering.from_pretrained(model_name)
+tokenizer = RobertaTokenizerFast.from_pretrained(model_name)
 
 # Save the model and tokenizer
-model.save_pretrained("qg_model")
-tokenizer.save_pretrained("qg_tok")
+model.save_pretrained("qa_model")
+tokenizer.save_pretrained("qa_tok")
