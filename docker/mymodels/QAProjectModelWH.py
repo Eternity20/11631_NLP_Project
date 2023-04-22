@@ -38,7 +38,7 @@ def set_random_seed(seed: int = 0):
 	torch.cuda.manual_seed(seed)
 	torch.cuda.manual_seed_all(seed)
 
-class QAProjectModel:
+class QAProjectModelWH:
 	def __init__(self, model, device, max_length=386, truncation='only_second', padding='max_length',
 	             return_overflowing_tokens=True, return_offsets_mapping=True, stride=128,
 	             n_best_size=20, max_answer_length=30, batch_size=16):
@@ -54,10 +54,10 @@ class QAProjectModel:
 		self.max_answer_length = max_answer_length
 		self.batch_size = batch_size
 		set_random_seed()
-		self.tokenizer = RobertaTokenizerFast.from_pretrained("pretrained/qa_tok",local_files_only = True)
-		self.model = RobertaForQuestionAnswering.from_pretrained("pretrained/qa_model",local_files_only = True).to(self.device)
-		# self.tokenizer = RobertaTokenizerFast.from_pretrained(self.model_name)
-		# self.model = RobertaForQuestionAnswering.from_pretrained(self.model_name).to(self.device)
+		#self.tokenizer = RobertaTokenizerFast.from_pretrained("pretrained/qa_tok",local_files_only = True)
+		#self.model = RobertaForQuestionAnswering.from_pretrained("pretrained/qa_model",local_files_only = True).to(self.device)
+		self.tokenizer = RobertaTokenizerFast.from_pretrained(self.model_name)
+		self.model = RobertaForQuestionAnswering.from_pretrained(self.model_name).to(self.device)
 
 	@classmethod
 	def from_config_dict(cls, model, device, config):

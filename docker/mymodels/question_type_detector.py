@@ -1,6 +1,6 @@
 import spacy
 
-SPACY_MODEL = "en_core_web_md"
+SPACY_MODEL = "en_core_web_sm"
 WH_FLAG = 'WH'
 YN_FLAG = 'YN'
 
@@ -8,6 +8,8 @@ class QuestionDetector():
 	def __init__(self, spacy_model=SPACY_MODEL):
 		self.wh_lst = ['which', 'what', 'whose', 'who', 'whom', 'where', 'whither', 'whence', 'when', 'how', 'why', 'whether']
 		self.nlp = spacy.load(spacy_model)
+		self.WH_FLAG = WH_FLAG
+		self.YN_FLAG = YN_FLAG
 
 	def detect(self, question):
 		doc = self.nlp(question)
