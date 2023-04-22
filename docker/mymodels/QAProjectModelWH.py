@@ -54,10 +54,10 @@ class QAProjectModelWH:
 		self.max_answer_length = max_answer_length
 		self.batch_size = batch_size
 		set_random_seed()
-		#self.tokenizer = RobertaTokenizerFast.from_pretrained("pretrained/qa_tok",local_files_only = True)
-		#self.model = RobertaForQuestionAnswering.from_pretrained("pretrained/qa_model",local_files_only = True).to(self.device)
-		self.tokenizer = RobertaTokenizerFast.from_pretrained(self.model_name)
-		self.model = RobertaForQuestionAnswering.from_pretrained(self.model_name).to(self.device)
+		self.tokenizer = RobertaTokenizerFast.from_pretrained("pretrained/qa_tok",local_files_only = True)
+		self.model = RobertaForQuestionAnswering.from_pretrained("pretrained/qa_model",local_files_only = True).to(self.device)
+		#self.tokenizer = RobertaTokenizerFast.from_pretrained(self.model_name)
+		#self.model = RobertaForQuestionAnswering.from_pretrained(self.model_name).to(self.device)
 
 	@classmethod
 	def from_config_dict(cls, model, device, config):
