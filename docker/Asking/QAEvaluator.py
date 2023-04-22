@@ -13,15 +13,15 @@ class QAEvaluator:
 
     def __init__(self) -> None:
 
-        QAE_PRETRAINED = "iarfmoose/bert-base-cased-qa-evaluator"
+        #QAE_PRETRAINED = "iarfmoose/bert-base-cased-qa-evaluator"
         self.SEQ_LENGTH = 256
 
         self.device = torch.device(
             "cuda" if torch.cuda.is_available() else "cpu")
 
-        self.qae_tokenizer = BertTokenizerFast.from_pretrained(QAE_PRETRAINED)
+        self.qae_tokenizer = BertTokenizerFast.from_pretrained("pretrained/qae_tok_ad",local_files_only = True)
         self.qae_model = BertForSequenceClassification.from_pretrained(
-            QAE_PRETRAINED
+            "pretrained/qae_model_ad",local_files_only = True
         )
         self.qae_model.to(self.device)
         self.qae_model.eval()

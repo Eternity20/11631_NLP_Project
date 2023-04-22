@@ -21,6 +21,9 @@ class YesNoQuestionGenerator:
     self.nquestion = nquestion
 
   def generate(self):
+      '''
+      Get the topk generated questions based on parameters
+      '''
       topkp_output = self.model.generate(input_ids=self.input_ids,
                                          attention_mask=self.attention_masks,
                                          max_length=512,

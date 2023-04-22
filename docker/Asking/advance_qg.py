@@ -28,7 +28,7 @@ class QuestionGenerator:
 
     def __init__(self) -> None:
 
-        QG_PRETRAINED = "iarfmoose/t5-base-question-generator"
+        #QG_PRETRAINED = "iarfmoose/t5-base-question-generator"
         self.answer_token = "<answer>"
         self.context_token = "<context>"
         self.max_seq_length = 512
@@ -41,8 +41,11 @@ class QuestionGenerator:
         self.device = torch.device(
             "cuda" if torch.cuda.is_available() else "cpu")
 
-        self.qg_tokenizer = T5TokenizerFast.from_pretrained(QG_PRETRAINED)
-        self.qg_model = T5ForConditionalGeneration.from_pretrained(QG_PRETRAINED)
+        self.qg_tokenizer = T5TokenizerFast.from_pretrained("pretrained/qg_tok_ad",local_files_only = True)
+        self.qg_model = T5ForConditionalGeneration.from_pretrained('pretrained/qg_model_ad',local_files_only = True)
+        #self.qg_tokenizer = AutoTokenizer.from_pretrained(
+        #    "pretrained/qg_tok_ad", use_fast=False)
+        #self.qg_model = AutoModelForSeq2SeqLM.from_pretrained('pretrained/qg_model_ad')
         self.qg_model.to(self.device)
         self.qg_model.eval()
 
