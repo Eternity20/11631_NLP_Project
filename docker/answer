@@ -33,25 +33,27 @@ def answer_questions(wiki_doc, questions, loaded_conf_dict):
             yn_questions.append(q)
             order_dict['yn'].append(i)
 
-    predicted_answers = [''] * len(questions)
+    predicted_answers = [{'prediction_text':''}] * len(questions)
     # Let's first answer the yes/no questions
-    qa_model = QAProjectModelYN(QA_YN_MODEL, device)
-    qa_dataset = QAProjectDataset(wiki_doc, yn_questions, qa_model.tokenizer, max_length=512, stride=0, truncation="only_second", padding="max_length", return_overflowing_tokens=False, return_offsets_mapping=False)
-    qa_dataloader = DataLoader(qa_dataset, batch_size=qa_model.batch_size, num_workers=2, pin_memory=True)
-    pred_answers = qa_model.qa_inference(qa_dataloader)
-    for i in range(len(pred_answers)):
-        predicted_answers[order_dict['yn'][i]] = pred_answers[i]
+    if yn_questions:
+        qa_model = QAProjectModelYN(QA_YN_MODEL, device)
+        qa_dataset = QAProjectDataset(wiki_doc, yn_questions, qa_model.tokenizer, max_length=512, stride=0, truncation="only_second", padding="max_length", return_overflowing_tokens=False, return_offsets_mapping=False)
+        qa_dataloader = DataLoader(qa_dataset, batch_size=qa_model.batch_size, num_workers=2, pin_memory=True)
+        pred_answers = qa_model.qa_inference(qa_dataloader)
+        for i in range(len(pred_answers)):
+            predicted_answers[order_dict['yn'][i]] = pred_answers[i]
 
     # finally the wh-questions
-    qa_model = QAProjectModelWH.from_config_dict(QA_WH_MODEL, device, loaded_conf_dict)
-    qa_dataset = QAProjectDataset.from_config_dict(wiki_doc, wh_questions, qa_model.tokenizer, loaded_conf_dict)
-    qa_dataloader = DataLoader(qa_dataset, batch_size=qa_model.batch_size, num_workers=2, pin_memory=True)
+    if wh_questions:
+        qa_model = QAProjectModelWH.from_config_dict(QA_WH_MODEL, device, loaded_conf_dict)
+        qa_dataset = QAProjectDataset.from_config_dict(wiki_doc, wh_questions, qa_model.tokenizer, loaded_conf_dict)
+        qa_dataloader = DataLoader(qa_dataset, batch_size=qa_model.batch_size, num_workers=2, pin_memory=True)
 
-    start_logits, end_logits = qa_model.qa_inference(qa_dataloader)
-    pred_answers = qa_model.post_processing(wh_questions, qa_dataset.wiki_doc_str, qa_dataset.tokenized_data, start_logits,
-                                            end_logits)
-    for i in range(len(pred_answers)):
-        predicted_answers[order_dict['wh'][i]] = pred_answers[i]
+        start_logits, end_logits = qa_model.qa_inference(qa_dataloader)
+        pred_answers = qa_model.post_processing(wh_questions, qa_dataset.wiki_doc_str, qa_dataset.tokenized_data, start_logits,
+                                                end_logits)
+        for i in range(len(pred_answers)):
+            predicted_answers[order_dict['wh'][i]] = pred_answers[i]
     return predicted_answers
 
 
