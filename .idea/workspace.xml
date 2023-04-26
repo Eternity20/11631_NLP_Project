@@ -173,15 +173,26 @@
       <workItem from="1681716594605" duration="18834000" />
       <workItem from="1681784557644" duration="2662000" />
       <workItem from="1681846082519" duration="1861000" />
-      <workItem from="1682466016488" duration="4895000" />
+      <workItem from="1682466016488" duration="7910000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/docker/test_energy_answer.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/11631_NLP_Project$test_energy_ask.coverage" NAME="test_energy_ask Coverage Results" MODIFIED="1682469334632" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docker" />
+    <SUITE FILE_PATH="coverage/11631_NLP_Project$test_energy_ask.coverage" NAME="test_energy_ask Coverage Results" MODIFIED="1682472189381" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docker" />
     <SUITE FILE_PATH="coverage/11631_NLP_Project$t5_small.coverage" NAME="t5_small Coverage Results" MODIFIED="1681777069579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docker/Asking" />
     <SUITE FILE_PATH="coverage/11631_NLP_Project$test_cpu.coverage" NAME="test_cpu Coverage Results" MODIFIED="1682466046561" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/11631_NLP_Project$ask.coverage" NAME="ask Coverage Results" MODIFIED="1680509856701" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docker" />

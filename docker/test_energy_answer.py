@@ -4,8 +4,7 @@ import warnings
 warnings.filterwarnings('ignore')
 import logging
 logging.disable(level=logging.CRITICAL)
-import cProfile
-import pstats
+from pyJoules.energy_meter import measure_energy
 
 import sys
 from typing import List, Tuple, Any
@@ -19,6 +18,7 @@ from utils import set_device
 QA_WH_MODEL = 'deepset/roberta-large-squad2'
 QA_YN_MODEL = 'gsgoncalves/roberta-base-boolq'
 
+@measure_energy
 def answer_questions(wiki_doc, questions, loaded_conf_dict):
     device = set_device()
     # Let's first split the questions into yes/no and wh-questions
@@ -86,16 +86,10 @@ if __name__ == '__main__':
     wiki_doc, questions, config_dict = \
         read_files(wiki_file_path, questions_file_path)
 
-    profiler = cProfile.Profile()
-    profiler.enable()
     for i in range(5):
         predicted_answers = answer_questions(wiki_doc, questions, config_dict)
-
         for answer in predicted_answers:
             print(f"{answer['prediction_text']}")
 
-    profiler.disable()
-    stats = pstats.Stats(profiler)
 
-    print(f"Average CPU utilization: {stats.total_tt/5} seconds")
     sys.exit(0)
