@@ -49,6 +49,8 @@ RUN chmod a+x QA/Asking
 RUN chmod a+x QA/mydatasets
 RUN chmod a+x QA/mymodels
 RUN chmod a+x QA/utils.py
+RUN chmod a+x QA/test_cpu_answer.py
+RUN chmod a+x QA/test_cpu_ask.py
 
 # Change the permissions of programs
 CMD ["chmod 777 /QA/*"]
