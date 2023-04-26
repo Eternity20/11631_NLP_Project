@@ -36,6 +36,7 @@ RUN mkdir /QA
 ADD pretrained /QA/pretrained
 ADD test_cpu_answer.py /QA
 ADD test_cpu_ask.py /QA
+ADD test_energy_ask.py /QA
 ADD ask /QA
 ADD answer /QA
 ADD Asking /QA/Asking
@@ -51,6 +52,7 @@ RUN chmod a+x QA/mymodels
 RUN chmod a+x QA/utils.py
 RUN chmod a+x QA/test_cpu_answer.py
 RUN chmod a+x QA/test_cpu_ask.py
+RUN chmod a+x QA/test_energy_ask.py
 
 # Change the permissions of programs
 CMD ["chmod 777 /QA/*"]
